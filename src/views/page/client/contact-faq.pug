@@ -1,0 +1,993 @@
+doctype html
+html(lang="vi")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Liên hệ &amp; Hỏi đáp — SoundHouse
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet")
+    style.
+      :root {
+        --cf-bg-page: #000000;
+        --cf-bg-header: #3d3e5b;
+        --cf-bg-card: #1d2128;
+        --cf-bg-footer: #2d2e45;
+        --cf-bg-cta: #636ae8;
+        --cf-accent: #636ae8;
+        --cf-text-primary: #f3f4f6;
+        --cf-text-secondary: #bcc1ca;
+        --cf-border-subtle: rgba(255, 255, 255, 0.05);
+        --cf-border-input: rgba(255, 255, 255, 0.10);
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        min-height: 100%;
+        background: var(--cf-bg-page);
+        font-family: Inter, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .cf-canvas { width: 100%; overflow-x: auto; }
+      /* Frame 1440 × 2933 — contact-faq-design-spec.md */
+      #cf-frame {
+        position: relative;
+        width: 1440px;
+        height: 2933px;
+        margin: 0 auto;
+        background: var(--cf-bg-page);
+        box-shadow: 0 3px 6px rgba(18, 15, 40, 0.12);
+      }
+      /* 3.1 Navbar y=0 h=108 */
+      .cf-nav {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1440px;
+        height: 108px;
+        background: var(--cf-bg-header);
+        box-shadow: 0 0 2px rgba(23, 26, 31, 0.08), 0 2px 4px rgba(23, 26, 31, 0.09);
+      }
+      .cf-nav-line {
+        position: absolute;
+        left: 0;
+        top: 108px;
+        width: 1440px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .cf-strip {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1440px;
+        height: 35px;
+        background: rgba(0, 0, 0, 0.2);
+      }
+      .cf-strip .cf-strip-line {
+        position: absolute;
+        left: 0;
+        top: 35px;
+        width: 1440px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .cf-tt {
+        position: absolute;
+        font-size: 13px;
+        line-height: 18px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .cf-ti {
+        position: absolute;
+        color: #fff;
+        font-size: 12px;
+        opacity: 0.7;
+      }
+      .cf-top-link {
+        position: absolute;
+        font-size: 13px;
+        line-height: 18px;
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+      }
+      .cf-top-link:hover { text-decoration: underline; }
+      .cf-logo {
+        position: absolute;
+        left: 32px;
+        top: 53px;
+        width: 36px;
+        height: 36px;
+        border-radius: 7px;
+        background: var(--cf-accent);
+        display: grid;
+        place-items: center;
+        font-size: 18px;
+        text-decoration: none;
+        color: #000;
+      }
+      .cf-brand {
+        position: absolute;
+        left: 75px;
+        top: 58px;
+        font-size: 23px;
+        font-weight: 700;
+        color: var(--cf-accent);
+        text-decoration: none;
+      }
+      .cf-sbg {
+        position: absolute;
+        left: 444px;
+        top: 51px;
+        width: 575px;
+        height: 39px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .cf-sin {
+        position: absolute;
+        left: 484px;
+        top: 59px;
+        width: 450px;
+        height: 24px;
+        border: 0;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 16px;
+        outline: none;
+      }
+      .cf-sgo {
+        position: absolute;
+        left: 943px;
+        top: 51px;
+        width: 79px;
+        height: 40px;
+        border: 0;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 18px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        font-family: Inter, sans-serif;
+      }
+      .cf-ic {
+        position: absolute;
+        top: 59px;
+        color: #fff;
+        font-size: 24px;
+      }
+      .cf-badge {
+        position: absolute;
+        left: 1249px;
+        top: 51px;
+        width: 18px;
+        height: 19px;
+        border-radius: 9px;
+        background: var(--cf-accent);
+        color: #191920;
+        font-size: 12px;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+      }
+      .cf-signin {
+        position: absolute;
+        left: 1331px;
+        top: 51px;
+        width: 78px;
+        height: 40px;
+        border: 0;
+        border-radius: 6px;
+        background: var(--cf-accent);
+        color: #191920;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: Inter, sans-serif;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        text-decoration: none;
+        box-sizing: border-box;
+        padding: 0 10px;
+      }
+      /* 3.2 Hero y=108 h=292 */
+      .cf-hero {
+        position: absolute;
+        left: 0;
+        top: 108px;
+        width: 1440px;
+        height: 292px;
+        background: var(--cf-bg-header);
+      }
+      .cf-hero-title {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 80px;
+        text-align: center;
+        font-size: 48px;
+        font-weight: 600;
+        line-height: 1.2;
+        color: #fff;
+      }
+      .cf-hero-sub {
+        position: absolute;
+        left: 208px;
+        right: 208px;
+        top: 151px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .cf-hero-line {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 1440px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      /* 3.3 FAQ y=399 h=890 */
+      #cf-faq.cf-faq {
+        position: absolute;
+        left: 0;
+        top: 399px;
+        width: 1440px;
+        height: 890px;
+        background: #000000;
+      }
+      .cf-faq-intro {
+        padding-top: 48px;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .cf-faq-label {
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 1.25;
+        color: var(--cf-text-primary);
+      }
+      .cf-faq-under {
+        display: block;
+        width: 80px;
+        height: 4px;
+        margin: 12px auto 0;
+        background: var(--cf-accent);
+        border-radius: 2px;
+      }
+      .cf-faq-cols {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 63px;
+        width: 1024px;
+        margin: 0 auto;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .cf-faq-left {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        width: 299px;
+        flex-shrink: 0;
+      }
+      .cf-feat {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 299px;
+        background: var(--cf-bg-card);
+        border: 1px solid var(--cf-border-subtle);
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: 0 0 2px rgba(23, 26, 31, 0.08), 0 1px 2.5px rgba(23, 26, 31, 0.07);
+        box-sizing: border-box;
+      }
+      .cf-feat-1 { min-height: 201px; }
+      .cf-feat-2 { min-height: 151px; }
+      .cf-feat-3 { min-height: 179px; }
+      .cf-ic-lg {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        background: rgba(99, 106, 232, 0.1);
+        display: grid;
+        place-items: center;
+        color: var(--cf-accent);
+        margin-bottom: 16px;
+      }
+      .cf-ic-lg svg { width: 24px; height: 24px; }
+      .cf-feat-t {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--cf-text-primary);
+        margin-bottom: 8px;
+      }
+      .cf-feat-p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        color: var(--cf-text-secondary);
+      }
+      .cf-acc {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 662px;
+        flex: 0 0 662px;
+        min-height: 443px;
+        background: var(--cf-bg-card);
+        border-radius: 16px;
+        padding: 33px;
+        box-sizing: border-box;
+      }
+      .cf-acc-item { border-bottom: 1px solid var(--cf-border-input); }
+      .cf-acc-item:last-child { border-bottom: 0; }
+      .cf-acc-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 20px 0;
+        cursor: pointer;
+        list-style: none;
+        user-select: none;
+      }
+      .cf-acc-head::-webkit-details-marker { display: none; }
+      .cf-acc-ico {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        color: var(--cf-accent);
+      }
+      .cf-acc-ico svg { width: 20px; height: 20px; display: block; }
+      .cf-acc-q {
+        flex: 1;
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--cf-text-primary);
+        text-align: left;
+      }
+      .cf-acc-chev {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        color: rgba(255, 255, 255, 0.6);
+        transition: transform 0.2s ease;
+      }
+      .cf-acc-item[open] .cf-acc-chev { transform: rotate(180deg); }
+      .cf-acc-body {
+        padding: 0 0 20px 32px;
+        font-size: 14px;
+        line-height: 22px;
+        color: var(--cf-text-secondary);
+        max-width: 100%;
+      }
+      /* 3.4 Contact y=1289 h=862 */
+      #cf-contact.cf-contact {
+        position: absolute;
+        left: 0;
+        top: 1289px;
+        width: 1440px;
+        height: 862px;
+        background: rgba(23, 26, 31, 0.3);
+      }
+      .cf-form-card {
+        position: absolute;
+        left: 208px;
+        top: 64px;
+        width: 480px;
+        height: 588px;
+        background: var(--cf-bg-card);
+        border-radius: 10px;
+        padding: 24px;
+      }
+      .cf-form-h {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--cf-accent);
+        margin-bottom: 8px;
+      }
+      .cf-form-sub {
+        font-size: 16px;
+        line-height: 24px;
+        color: var(--cf-text-secondary);
+        margin-bottom: 24px;
+      }
+      .cf-frow {
+        display: flex;
+        gap: 18px;
+        margin-bottom: 16px;
+      }
+      .cf-fgrp {
+        width: 207px;
+        flex: none;
+      }
+      .cf-flab {
+        display: block;
+        font-size: 14px;
+        color: var(--cf-text-secondary);
+        margin-bottom: 8px;
+      }
+      .cf-fin {
+        width: 100%;
+        height: 39px;
+        border-radius: 6px;
+        border: 1px solid var(--cf-border-input);
+        background: #000000;
+        padding: 9px 12px;
+        font-size: 14px;
+        font-family: Inter, sans-serif;
+        color: var(--cf-text-primary);
+        outline: none;
+      }
+      .cf-fin::placeholder { color: var(--cf-text-secondary); }
+      .cf-fin-half { width: 207px; }
+      .cf-fin-full { width: 431px; }
+      .cf-ta {
+        width: 431px;
+        height: 149px;
+        border-radius: 6px;
+        border: 1px solid var(--cf-border-input);
+        background: #000000;
+        padding: 9px 12px;
+        font-size: 14px;
+        font-family: Inter, sans-serif;
+        color: var(--cf-text-primary);
+        resize: both;
+        outline: none;
+      }
+      .cf-ta::placeholder { color: var(--cf-text-secondary); }
+      .cf-submit {
+        width: 432px;
+        height: 48px;
+        margin-top: 8px;
+        border: 0;
+        border-radius: 6px;
+        background: var(--cf-accent);
+        color: #191920;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: Inter, sans-serif;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .cf-contact-right {
+        position: absolute;
+        left: 752px;
+        top: 64px;
+        width: 480px;
+      }
+      .cf-store {
+        width: 480px;
+        height: 288px;
+        background: var(--cf-bg-card);
+        border-radius: 16px;
+        padding: 24px;
+      }
+      .cf-store-row {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 16px;
+      }
+      .cf-store-row:last-child { margin-bottom: 0; }
+      .cf-pill {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        background: #171a1f;
+        border: 1px solid var(--cf-border-input);
+        display: grid;
+        place-items: center;
+        color: var(--cf-accent);
+      }
+      .cf-pill svg { width: 20px; height: 20px; }
+      .cf-store-lab {
+        font-size: 12px;
+        color: var(--cf-text-secondary);
+        margin-bottom: 2px;
+      }
+      .cf-store-val {
+        font-size: 14px;
+        color: var(--cf-text-primary);
+        line-height: 20px;
+      }
+      .cf-map {
+        position: absolute;
+        left: 0;
+        top: 416px;
+        width: 480px;
+        height: 350px;
+        background: #171a1f;
+        border-radius: 16px;
+        border: 1px solid var(--cf-border-input);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px;
+      }
+      .cf-map-glow {
+        position: absolute;
+        width: 280px;
+        height: 200px;
+        left: 50%;
+        top: 40%;
+        transform: translate(-50%, -50%);
+        background: rgba(99, 106, 232, 0.2);
+        filter: blur(128px);
+        pointer-events: none;
+        border-radius: 50%;
+      }
+      .cf-map-pin-wrap {
+        position: relative;
+        z-index: 1;
+        width: 64px;
+        height: 64px;
+        border-radius: 32px;
+        background: rgba(99, 106, 232, 0.2);
+        display: grid;
+        place-items: center;
+        color: var(--cf-accent);
+        margin-bottom: 12px;
+      }
+      .cf-map-pin-wrap svg { width: 32px; height: 32px; }
+      .cf-map-t {
+        position: relative;
+        z-index: 1;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 8px;
+      }
+      .cf-map-s {
+        position: relative;
+        z-index: 1;
+        font-size: 14px;
+        line-height: 20px;
+        color: rgba(255, 255, 255, 0.4);
+        max-width: 400px;
+        margin-bottom: 16px;
+      }
+      .cf-map-btn {
+        position: relative;
+        z-index: 1;
+        height: 40px;
+        padding: 0 20px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: #000000;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: Inter, sans-serif;
+        cursor: pointer;
+      }
+      /* 3.5 CTA y=2151 h=408 */
+      .cf-cta {
+        position: absolute;
+        left: 0;
+        top: 2151px;
+        width: 1440px;
+        height: 408px;
+        background: var(--cf-bg-cta);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 208px;
+      }
+      .cf-cta-h {
+        font-size: 36px;
+        font-weight: 700;
+        color: #19191f;
+        margin-bottom: 12px;
+        max-width: 900px;
+      }
+      .cf-cta-sub {
+        font-size: 16px;
+        line-height: 24px;
+        color: rgba(25, 25, 31, 0.8);
+        max-width: 720px;
+        margin-bottom: 32px;
+      }
+      .cf-cta-btns {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .cf-cta-zalo {
+        width: 212px;
+        height: 56px;
+        border: 0;
+        border-radius: 6px;
+        background: #262a33;
+        color: var(--cf-text-primary);
+        font-size: 16px;
+        font-weight: 600;
+        font-family: Inter, sans-serif;
+        cursor: pointer;
+      }
+      .cf-cta-call {
+        width: 215px;
+        height: 56px;
+        border: 0;
+        border-radius: 6px;
+        background: #000000;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: Inter, sans-serif;
+        cursor: pointer;
+      }
+      /* 3.6 Footer y=2559 h=374 */
+      .cf-foot {
+        position: absolute;
+        left: 0;
+        top: 2559px;
+        width: 1440px;
+        height: 374px;
+        background: var(--cf-bg-footer);
+        border-top: 1px solid var(--cf-border-subtle);
+      }
+      .cf-foot-cols {
+        position: absolute;
+        left: 32px;
+        top: 48px;
+        right: 32px;
+        height: 220px;
+      }
+      .cf-foot-b1 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 285px;
+      }
+      .cf-foot-logo {
+        display: inline-flex;
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        background: var(--cf-accent);
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        vertical-align: middle;
+      }
+      .cf-foot-brand {
+        display: inline-block;
+        margin-left: 11px;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--cf-accent);
+        vertical-align: middle;
+      }
+      .cf-foot-tag {
+        margin-top: 16px;
+        font-size: 14px;
+        line-height: 22px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .cf-foot-col2 {
+        position: absolute;
+        left: 388px;
+        top: 0;
+        width: 300px;
+      }
+      .cf-foot-col3 {
+        position: absolute;
+        left: 744px;
+        top: 0;
+        width: 320px;
+      }
+      .cf-foot-col4 {
+        position: absolute;
+        left: 1100px;
+        top: 0;
+        width: 308px;
+      }
+      .cf-foot-h {
+        font-size: 18px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 16px;
+      }
+      .cf-foot-a {
+        display: block;
+        font-size: 14px;
+        line-height: 28px;
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+      }
+      .cf-foot-a:hover { text-decoration: underline; }
+      .cf-foot-bank {
+        font-size: 14px;
+        color: #fff;
+        margin-bottom: 4px;
+      }
+      .cf-foot-acct {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 12px;
+      }
+      .cf-soc {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .cf-soc a {
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 18px;
+      }
+      .cf-foot-addr {
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+        font-size: 14px;
+        line-height: 20px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .cf-foot-bar {
+        position: absolute;
+        left: 0;
+        top: 293px;
+        width: 1440px;
+        height: 49px;
+        border-top: 1px solid var(--cf-border-subtle);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .cf-foot-copy {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.4);
+      }
+      .cf-toast {
+        position: fixed;
+        left: 50%;
+        bottom: 32px;
+        transform: translateX(-50%);
+        padding: 12px 24px;
+        background: #1d2128;
+        border: 1px solid var(--cf-border-input);
+        border-radius: 8px;
+        color: var(--cf-text-primary);
+        font-size: 14px;
+        z-index: 100;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .cf-toast.cf-toast-on { opacity: 1; pointer-events: auto; }
+
+  body
+    .cf-canvas
+      #cf-frame
+        header.cf-nav
+          .cf-strip
+            .cf-strip-line
+            span.cf-ti(style="left:32px;top:11px") ☎
+            span.cf-tt(style="left:48px;top:8px") +84 123 456 789
+            span.cf-ti(style="left:155px;top:11px") ✉
+            span.cf-tt(style="left:172px;top:8px") support@soundhouse.vn
+            a.cf-top-link(href="#cf-faq" style="left:1168px;top:8px") Hỏi đáp
+            a.cf-top-link(href="#cf-contact" style="left:1280px;top:8px") Liên hệ
+          a.cf-logo(href="/" aria-label="SoundHouse trang chủ") 🔊
+          a.cf-brand(href="/") SoundHouse
+          .cf-sbg
+          input.cf-sin(type="text" placeholder="Tìm loa, thương hiệu..." aria-label="Tìm kiếm")
+            button.cf-sgo(type="button" aria-label="Tìm kiếm sản phẩm") Tìm kiếm
+          a.cf-ic(style="left:1235px" href="/cart" aria-label="Giỏ hàng") 🛒
+          span.cf-badge 2
+          span.cf-ic(style="left:1280px" aria-hidden="true") ♡
+          a.cf-signin(href="/login") Đăng nhập
+          .cf-nav-line
+
+        section.cf-hero(aria-labelledby="cf-hero-title")
+          h1#cf-hero-title.cf-hero-title Liên Hệ &amp; Hỗ Trợ
+          p.cf-hero-sub Bạn cần tư vấn về giải pháp âm thanh chuyên nghiệp? Đội ngũ SoundHouse luôn sẵn sàng lắng nghe và hỗ trợ bạn 24/7.
+          .cf-hero-line
+
+        section#cf-faq.cf-faq(aria-labelledby="cf-faq-title")
+          .cf-faq-intro
+            h2#cf-faq-title.cf-faq-label Câu hỏi thường gặp (FAQ)
+            .cf-faq-under
+          .cf-faq-cols
+            .cf-faq-left
+              article.cf-feat.cf-feat-1
+                .cf-ic-lg
+                  svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                    path(d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z")
+                    path(d="m9 12 2 2 4-4")
+                h3.cf-feat-t Bảo hành chính hãng
+                p.cf-feat-p Cam kết sản phẩm mới 100%, đầy đủ giấy tờ bảo hành từ các thương hiệu lớn.
+              article.cf-feat.cf-feat-2
+                .cf-ic-lg
+                  svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                    path(d="M14 18V6a2 2 0 00-2-2H4a2 2 0 00-2 2v11a1 1 0 001 1h2")
+                    path(d="M15 18H9")
+                    path(d="M19 18h2a1 1 0 001-1v-3.65a1 1 0 00-.22-.624l-3.48-4.35A1 1 0 0017.52 8H14")
+                    circle(cx="17" cy="18" r="2")
+                    circle(cx="7" cy="18" r="2")
+                h3.cf-feat-t Giao hàng siêu tốc
+                p.cf-feat-p Hỗ trợ giao hàng hỏa tốc trong 2h tại nội thành TP.HCM và Hà Nội.
+              article.cf-feat.cf-feat-3
+                .cf-ic-lg
+                  svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+                    path(d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z")
+                h3.cf-feat-t Tư vấn chuyên môn
+                p.cf-feat-p Đội ngũ kỹ thuật viên có hơn 10 năm kinh nghiệm trong ngành nghe nhìn.
+            .cf-acc(role="region" aria-label="Danh sách câu hỏi")
+              details.cf-acc-item(open)
+                summary.cf-acc-head
+                  span.cf-acc-ico
+                    svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round")
+                      path(d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z")
+                      path(d="m9 12 2 2 4-4")
+                  span.cf-acc-q Chế độ bảo hành cho loa tại SoundHouse như thế nào?
+                  span.cf-acc-chev(aria-hidden="true")
+                    svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2")
+                      path(d="m6 9 6 6 6-6")
+                .cf-acc-body Tất cả các sản phẩm loa tại SoundHouse đều được bảo hành chính hãng từ 12 đến 24 tháng tùy thương hiệu. Chúng tôi cam kết 1 đổi 1 trong vòng 30 ngày nếu có lỗi từ nhà sản xuất.
+              details.cf-acc-item
+                summary.cf-acc-head
+                  span.cf-acc-ico
+                    svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2")
+                      path(d="M14 18V6a2 2 0 00-2-2H4a2 2 0 00-2 2v11a1 1 0 001 1h2")
+                      path(d="M15 18H9")
+                      path(d="M19 18h2a1 1 0 001-1v-3.65a1 1 0 00-.22-.624l-3.48-4.35A1 1 0 0017.52 8H14")
+                      circle(cx="17" cy="18" r="2")
+                      circle(cx="7" cy="18" r="2")
+                  span.cf-acc-q Tôi có thể kiểm tra hàng trước khi thanh toán không?
+                  span.cf-acc-chev(aria-hidden="true")
+                    svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2")
+                      path(d="m6 9 6 6 6-6")
+                .cf-acc-body Bạn có thể kiểm tra tình trạng sản phẩm khi nhận hàng. Vui lòng liên hệ hotline nếu cần hỗ trợ thêm.
+              details.cf-acc-item
+                summary.cf-acc-head
+                  span.cf-acc-ico
+                    svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2")
+                      rect(x="1" y="4" width="22" height="16" rx="2" ry="2")
+                      line(x1="1" y1="10" x2="23" y2="10")
+                  span.cf-acc-q Làm thế nào để thanh toán qua chuyển khoản ngân hàng?
+                  span.cf-acc-chev(aria-hidden="true")
+                    svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2")
+                      path(d="m6 9 6 6 6-6")
+                .cf-acc-body Chuyển khoản theo thông tin tài khoản ở cuối trang; ghi rõ mã đơn hàng trong nội dung chuyển khoản.
+              details.cf-acc-item
+                summary.cf-acc-head
+                  span.cf-acc-ico
+                    svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2")
+                      path(d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z")
+                  span.cf-acc-q SoundHouse có hỗ trợ lắp đặt dàn âm thanh tại nhà không?
+                  span.cf-acc-chev(aria-hidden="true")
+                    svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2")
+                      path(d="m6 9 6 6 6-6")
+                .cf-acc-body Có — đội ngũ kỹ thuật hỗ trợ khảo sát và lắp đặt theo lịch hẹn tại TP.HCM và Hà Nội.
+
+        section#cf-contact.cf-contact(aria-labelledby="cf-contact-title")
+          .cf-form-card
+            h2#cf-contact-title.cf-form-h Gửi tin nhắn cho chúng tôi
+            p.cf-form-sub Để lại thông tin, chuyên viên của chúng tôi sẽ gọi lại tư vấn cho bạn sau ít phút.
+            form#cf-form.cf-form(autocomplete="on" novalidate)
+              .cf-frow
+                .cf-fgrp
+                  label.cf-flab(for="cf-name") Họ và tên
+                  input#cf-name.cf-fin.cf-fin-half(type="text" name="name" placeholder="Nguyễn Văn A" required)
+                .cf-fgrp
+                  label.cf-flab(for="cf-email") Thư điện tử
+                  input#cf-email.cf-fin.cf-fin-half(type="email" name="email" placeholder="a.nguyen@email.com" required)
+              div
+                label.cf-flab(for="cf-subject") Chủ đề
+                input#cf-subject.cf-fin.cf-fin-full(type="text" name="subject" placeholder="Cần tư vấn loa phòng họp / Bảo hành sản phẩm...")
+              div(style="margin-top:16px")
+                label.cf-flab(for="cf-msg") Nội dung
+                textarea#cf-msg.cf-ta(name="message" placeholder="Mô tả chi tiết nhu cầu của bạn để chúng tôi hỗ trợ tốt nhất...")
+              button.cf-submit(type="submit")
+                span Gửi yêu cầu ngay
+                svg(width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true")
+                  line(x1="22" y1="2" x2="11" y2="13")
+                  polygon(points="22 2 15 22 11 13 2 9 22 2")
+
+          .cf-contact-right
+            .cf-store
+              .cf-store-row
+                .cf-pill
+                  svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2")
+                    path(d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z")
+                    circle(cx="12" cy="10" r="3")
+                div
+                  .cf-store-lab Địa chỉ
+                  .cf-store-val 123 Sound Street, Quận 1, TP. HCM
+              .cf-store-row
+                .cf-pill
+                  svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2")
+                    path(d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z")
+                div
+                  .cf-store-lab Hotline
+                  .cf-store-val +84 123 456 789
+              .cf-store-row
+                .cf-pill
+                  svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2")
+                    path(d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z")
+                    polyline(points="22,6 12,13 2,6")
+                div
+                  .cf-store-lab Thư điện tử
+                  .cf-store-val support@soundhouse.vn
+              .cf-store-row
+                .cf-pill
+                  svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2")
+                    circle(cx="12" cy="12" r="10")
+                    polyline(points="12 6 12 12 16 14")
+                div
+                  .cf-store-lab Giờ làm việc
+                  .cf-store-val 08:00 - 21:00 (Tất cả các ngày)
+            .cf-map
+              .cf-map-glow
+              .cf-map-pin-wrap
+                svg(viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2")
+                  path(d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z")
+                  circle(cx="12" cy="10" r="3")
+              h3.cf-map-t Bản đồ vị trí cửa hàng
+              p.cf-map-s Hệ thống showroom SoundHouse trải dài khắp các thành phố lớn. Click để xem chỉ đường trên Google Maps.
+              button.cf-map-btn(type="button" data-maps) Mở trong Google Maps
+
+        section.cf-cta(aria-labelledby="cf-cta-title")
+          h2#cf-cta-title.cf-cta-h Vẫn còn thắc mắc? Chat trực tiếp với chuyên gia!
+          p.cf-cta-sub Đội ngũ kỹ thuật của chúng tôi luôn trực tuyến để giải đáp mọi vấn đề về phối ghép thiết bị và cài đặt hệ thống.
+          .cf-cta-btns
+            button.cf-cta-zalo(type="button" data-contact-zalo) Chat Zalo ngay
+            button.cf-cta-call(type="button" data-contact-call) Gọi: 1900 8888
+
+        footer.cf-foot
+          .cf-foot-cols
+            .cf-foot-b1
+              span.cf-foot-logo 🔊
+              span.cf-foot-brand SoundHouse
+              p.cf-foot-tag Điểm đến cao cấp cho âm thanh trung thực. Từ loa Bluetooth di động đến hệ thống rạp tại gia chuyên nghiệp.
+            .cf-foot-col2
+              h3.cf-foot-h Hỗ trợ khách hàng
+              a.cf-foot-a(href="/contact-faq#cf-contact") Chính sách vận chuyển
+              a.cf-foot-a(href="/contact-faq#cf-faq") Đổi trả &amp; hoàn tiền
+              a.cf-foot-a(href="/checkout") Phương thức thanh toán
+              a.cf-foot-a(href="/contact-faq#cf-faq") Câu hỏi thường gặp
+            .cf-foot-col3
+              h3.cf-foot-h Tài khoản chuyển khoản
+              .cf-foot-bank Vietcombank
+              .cf-foot-acct 1234567890 · NGUYEN VAN A
+              .cf-foot-bank Techcombank
+              .cf-foot-acct 0987654321 · NGUYEN VAN A
+            .cf-foot-col4
+              h3.cf-foot-h Kết nối với chúng tôi
+              .cf-soc
+                a(href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook") f
+                a(href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram") ◎
+                a(href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube") ▶
+              .cf-foot-addr
+                span(aria-hidden="true") 📍
+                span 123 Sound Street, TP. Hồ Chí Minh
+          .cf-foot-bar
+            p.cf-foot-copy © 2026 SoundHouse. Dành cho người yêu âm thanh cao cấp.
+
+    #cf-toast.cf-toast(role="status" aria-live="polite")
+
+    script(type="module" src="/js/contact.js")

@@ -8,30 +8,40 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon --exec babel-node app.js",
+    "dev": "nodemon app.js",
     "build": "babel . -d dist --ignore node_modules",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/smoke/run-smoke-tests.js",
+    "test:smoke": "node tests/smoke/run-smoke-tests.js",
+    "dev:css": "tailwindcss -i ./src/styles/Tailwind.css -o ./public/css/tailwind.css --watch",
+    "build:css": "tailwindcss -i ./src/styles/Tailwind.css -o ./public/css/tailwind.css --minify",
+    "seed": "node src/seeders/product.seeder.js",
+    "seed:clear": "node src/seeders/clear.seeder.js"
   },
   "dependencies": {
-    "bcryptjs": "^3.0.2",
+    "bcrypt": "^6.0.0",
     "cloudinary": "^2.7.0",
     "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.3.1",
     "express": "^5.1.0",
     "express-rate-limit": "^8.1.0",
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.1",
-    "morgan": "^1.10.1",
     "multer": "^2.0.2",
-    "nodemailer": "^7.0.9"
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^7.0.13",
+    "pug": "^3.0.3",
+    "slugify": "^1.6.8"
   },
   "devDependencies": {
     "@babel/cli": "^7.28.3",
     "@babel/core": "^7.28.3",
     "@babel/node": "^7.28.0",
     "@babel/preset-env": "^7.28.3",
-    "nodemon": "^3.1.10"
+    "autoprefixer": "^10.4.22",
+    "nodemon": "^3.1.10",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.15"
   }
 }

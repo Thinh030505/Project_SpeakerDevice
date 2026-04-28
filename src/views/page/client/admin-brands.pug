@@ -1,0 +1,77 @@
+extends ../../layouts/admin
+
+block content
+  .admin-page(data-admin-page="brands")
+    .split
+      .panel
+        .panel__header
+          .panel__title
+            h3 Danh sach thuong hieu
+            p Ho tro tim kiem, loc trang thai va dong bo goi y cho form san pham.
+        .admin-toolbar
+          .toolbar-item.toolbar-item--grow
+            input(type="search" placeholder="Tim thuong hieu..." data-brand-search)
+          .toolbar-item
+            select(data-brand-status)
+              option(value="active") Dang hien
+              option(value="inactive") Tam an
+          .toolbar-actions
+            button.admin-btn-secondary(type="button" data-brand-refresh) Tai lai
+        .list-shell
+          .record-list(data-brand-list)
+          .empty-state(data-brand-empty hidden)
+            strong Chua co thuong hieu phu hop
+            p Thu tim lai hoac tao thuong hieu moi.
+          .pagination(data-brand-pagination)
+      .panel
+        .panel__header
+          .panel__title
+            h3 Them / sua thuong hieu
+            p Thuong hieu se dong bo vao goi y nhap nhanh san pham.
+        form.stack(data-brand-form novalidate)
+          input(type="hidden" name="id")
+          .form-section
+            .field
+              label(for="brand-name") Ten thuong hieu
+              input#brand-name(type="text" name="name" required)
+            .field-grid
+              .field
+                label(for="brand-country") Quoc gia
+                input#brand-country(type="text" name="country")
+              .field
+                label(for="brand-year") Nam thanh lap
+                input#brand-year(type="number" name="foundedYear" min="1800")
+            .field
+              label(for="brand-description") Mo ta
+              textarea#brand-description(name="description")
+            .field
+              label(for="brand-short") Mo ta ngan
+              textarea#brand-short(name="shortDescription")
+            .field-grid
+              .field
+                label(for="brand-logo") Logo URL
+                input#brand-logo(type="url" name="logo")
+              .field
+                label(for="brand-website") Website
+                input#brand-website(type="url" name="website")
+            .field-grid
+              .field
+                label(for="brand-email") Email lien he
+                input#brand-email(type="email" name="contactEmail")
+              .field
+                label(for="brand-order") Thu tu hien thi
+                input#brand-order(type="number" name="order" min="0" value="0")
+            .field-grid
+              .field
+                label(for="brand-status-select") Trang thai
+                select#brand-status-select(name="status")
+                  option(value="active") Dang hien
+                  option(value="inactive") Tam an
+              .field
+                label(for="brand-featured") Noi bat
+                select#brand-featured(name="featured")
+                  option(value="false") Khong
+                  option(value="true") Co
+          .inline-actions
+            button.admin-btn(type="submit") Luu thuong hieu
+            button.admin-btn-ghost(type="button" data-brand-reset) Lam moi

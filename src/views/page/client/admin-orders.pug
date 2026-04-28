@@ -1,0 +1,33 @@
+extends ../../layouts/admin
+
+block content
+  .admin-page(data-admin-page="orders")
+    .panel
+      .panel__header
+        .panel__title
+          h3 Quan ly don hang
+          p Loc theo trang thai, thanh toan va cap nhat co xac nhan.
+      .admin-toolbar
+        .toolbar-item.toolbar-item--grow
+          input(type="search" placeholder="Tim ma don, ten, email, so dien thoai..." data-admin-order-search)
+        .toolbar-item
+          select(data-admin-order-status)
+            option(value="") Tat ca trang thai don
+            option(value="pending") Cho xu ly
+            option(value="processing") Dang xu ly
+            option(value="completed") Hoan thanh
+            option(value="cancelled") Da huy
+        .toolbar-item
+          select(data-admin-payment-status)
+            option(value="") Tat ca thanh toan
+            option(value="pending") Cho thanh toan
+            option(value="paid") Da thanh toan
+            option(value="failed") That bai
+        .toolbar-actions
+          button.admin-btn-secondary(type="button" data-admin-order-refresh) Tai lai
+      .list-shell
+        .record-list(data-admin-order-list)
+        .empty-state(data-admin-order-empty hidden)
+          strong Khong co don hang phu hop
+          p Thu thay doi bo loc hoac tim kiem.
+        .pagination(data-admin-order-pagination)

@@ -1,0 +1,78 @@
+extends ../../layouts/admin
+
+block content
+  .admin-page(data-admin-page="banners")
+    .admin-section-head
+      .admin-section-head__copy
+        h2 Banner / Slider trang chu
+        p Quan ly anh hero tren Home, thu tu hien thi, CTA va trang thai active.
+      .inline-actions
+        button.admin-btn(type="button" data-banner-create-new) Them banner
+    .split
+      .panel
+        .panel__header
+          .panel__title
+            h3 Danh sach banner
+            p Banner active se duoc uu tien hien thi o hero trang chu.
+        .admin-toolbar
+          .toolbar-item.toolbar-item--grow
+            input(type="search" placeholder="Tim banner..." data-banner-search)
+          .toolbar-item
+            select(data-banner-status)
+              option(value="") Tat ca trang thai
+              option(value="active") Dang hien
+              option(value="inactive") Tam an
+          .toolbar-actions
+            button.admin-btn-secondary(type="button" data-banner-refresh) Tai lai
+        .list-shell
+          .record-list(data-banner-list)
+          .empty-state(data-banner-empty hidden)
+            strong Chua co banner phu hop
+            p Tao banner moi de hien thi slider trang chu.
+          .pagination(data-banner-pagination)
+      .panel
+        .panel__header
+          .panel__title
+            h3 Them / sua banner
+            p Anh phai la URL hop le hoac upload len Cloudinary truoc khi luu.
+        form.stack(data-banner-form novalidate)
+          input(type="hidden" name="id")
+          .form-section
+            .field
+              label(for="banner-title") Tieu de
+              input#banner-title(type="text" name="title" maxlength="160" required)
+            .field
+              label(for="banner-description") Mo ta
+              textarea#banner-description(name="description" maxlength="500")
+            .field
+              label(for="banner-image") Anh desktop
+              input#banner-image(type="url" name="image" data-banner-image-input required)
+            .field
+              label(for="banner-mobile-image") Anh mobile
+              input#banner-mobile-image(type="url" name="mobileImage" data-banner-mobile-image-input)
+            .upload-dropzone
+              input(type="file" accept="image/*" data-banner-image-upload)
+              .inline-actions
+                button.admin-btn-secondary(type="button" data-banner-upload-trigger) Upload anh desktop
+                button.admin-btn-ghost(type="button" data-banner-upload-mobile-trigger) Upload anh mobile
+                span.helper(data-banner-upload-count) Chua chon file nao.
+            .field-grid
+              .field
+                label(for="banner-button-text") Button text
+                input#banner-button-text(type="text" name="buttonText" maxlength="60" placeholder="Mua ngay")
+              .field
+                label(for="banner-button-link") Button link
+                input#banner-button-link(type="text" name="buttonLink" placeholder="/category")
+            .field-grid
+              .field
+                label(for="banner-status") Trang thai
+                select#banner-status(name="status")
+                  option(value="active") Dang hien
+                  option(value="inactive") Tam an
+              .field
+                label(for="banner-order") Thu tu
+                input#banner-order(type="number" name="order" min="0" value="0")
+          .banner-preview(data-banner-preview)
+          .inline-actions
+            button.admin-btn(type="submit" data-banner-submit) Luu banner
+            button.admin-btn-ghost(type="button" data-banner-reset) Lam moi

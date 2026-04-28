@@ -1,0 +1,297 @@
+extends ../../layouts/storefront
+
+block head
+  style.
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 24px;
+      align-items: start;
+    }
+    .checkout-form,
+    .checkout-summary {
+      padding: 24px;
+    }
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .checkout-grid .field.full {
+      grid-column: 1 / -1;
+    }
+    .payment-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .saved-address-panel {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(61, 62, 91, 0.16);
+      background: rgba(61, 62, 91, 0.06);
+    }
+    .saved-address-panel[hidden] {
+      display: none;
+    }
+    .saved-address-panel__head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .saved-address-panel__head strong {
+      color: var(--primary-dark);
+    }
+    .saved-address-panel__head span {
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+    .saved-address-panel select {
+      width: 100%;
+      min-height: 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(61, 62, 91, 0.18);
+      background: #fff;
+      color: var(--text);
+      padding: 0 14px;
+    }
+    .payment-option {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .payment-option input {
+      margin-top: 4px;
+    }
+    .payment-guide {
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+    }
+    .payment-guide strong {
+      color: var(--text);
+    }
+    .qr-payment-panel {
+      display: grid;
+      gap: 16px;
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(99, 106, 232, 0.28);
+      background: rgba(99, 106, 232, 0.08);
+    }
+    .qr-payment-panel img {
+      width: min(100%, 320px);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      border-radius: 20px;
+      background: #ffffff;
+      padding: 14px;
+    }
+    .qr-payment-panel dl {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 10px 12px;
+      margin: 0;
+    }
+    .qr-payment-panel dt {
+      color: var(--muted);
+    }
+    .qr-payment-panel dd {
+      margin: 0;
+      word-break: break-word;
+    }
+    .checkout-summary ul {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+      display: grid;
+      gap: 12px;
+    }
+    .checkout-summary li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+    }
+    .summary-strong {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 18px;
+      font-size: 18px;
+    }
+    .order-result {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(52, 211, 153, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.22);
+      color: #d1fae5;
+    }
+    .payment-status-banner {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(251, 191, 36, 0.28);
+      background: rgba(251, 191, 36, 0.12);
+      color: #fde68a;
+    }
+    .payment-status-banner.is-paid {
+      border-color: rgba(52, 211, 153, 0.28);
+      background: rgba(52, 211, 153, 0.12);
+      color: #d1fae5;
+    }
+    @media (max-width: 960px) {
+      .checkout-layout,
+      .checkout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+block content
+  .page-breadcrumb
+    a(href="/") Trang chủ
+    span /
+    a(href="/cart") Giỏ hàng
+    span /
+    span Thanh toán
+
+  .page-hero
+    .pill Checkout end-to-end
+    h1 Hoàn tất đơn hàng
+    p Thông tin giao hàng sẽ tự động điền từ địa chỉ mặc định nếu bạn đã đăng nhập và có sổ địa chỉ.
+
+  .checkout-layout
+    section.checkout-form.section-card(data-checkout-root data-checkout-config=JSON.stringify(checkoutConfig || {}))
+      h2(style="margin-top:0") Thông tin giao hàng
+      form.stack(data-checkout-form)
+        .saved-address-panel(data-saved-address-panel hidden)
+          .saved-address-panel__head
+            strong Địa chỉ đã lưu
+            span(data-saved-address-status) Đang kiểm tra địa chỉ mặc định...
+          select(data-saved-address-select aria-label="Chọn địa chỉ giao hàng")
+        .checkout-grid(data-location-group)
+          .field
+            label(for="fullName") Họ và tên
+            input#fullName(type="text" name="fullName" required placeholder="Nguyễn Văn A")
+          .field
+            label(for="phone") Số điện thoại
+            input#phone(type="tel" name="phone" required placeholder="0912345678")
+          .field.full
+            label(for="email") Email
+            input#email(type="email" name="email" required placeholder="nguyenvana@gmail.com")
+          .field.full
+            label(for="addressLine") Địa chỉ nhận hàng
+            input#addressLine(type="text" name="addressLine" required placeholder="Số nhà, tên đường, tòa nhà...")
+          .field
+            label(for="city") Tỉnh / Thành phố
+            select#city(name="city" required data-location-city)
+              option(value="") Chọn Tỉnh / Thành phố
+          .field
+            label(for="district") Quận / Huyện
+            select#district(name="district" data-location-district disabled)
+              option(value="") Chọn Quận / Huyện
+          .field
+            label(for="ward") Phường / Xã
+            select#ward(name="ward" data-location-ward disabled)
+              option(value="") Chọn Phường / Xã
+          .field.full
+            label(for="note") Ghi chú
+            textarea#note(name="note" placeholder="Ghi chú thêm cho cửa hàng hoặc shipper")
+
+        .stack
+          h3(style="margin:0") Phuong thuc thanh toan
+          .payment-list
+            label.payment-option
+              input(type="radio" name="paymentMethod" value="cod" checked)
+              span
+                strong Thanh toan khi nhan hang
+                br
+                span.muted De trien khai va phu hop cho cac don COD thong thuong.
+            label.payment-option
+              input(type="radio" name="paymentMethod" value="bank_transfer")
+              span
+                strong Chuyen khoan ngan hang
+                br
+                span.muted He thong tao don o trang thai cho xac nhan thanh toan.
+            if checkoutConfig && checkoutConfig.enabled
+              label.payment-option
+                input(type="radio" name="paymentMethod" value="qr_personal")
+                span
+                  strong Thanh toan QR ca nhan
+                  br
+                  span.muted Tao don xong la co QR ngay, trang se tu theo doi xac nhan thanh toan.
+          .payment-guide(data-bank-transfer-note hidden)
+            strong Thong tin nhan tien
+            p(style="margin:8px 0 0")
+              | Ngan hang:
+              = ' '
+              span(data-payment-bank-name)= (checkoutConfig && checkoutConfig.bankName) || 'Vietcombank'
+            p(style="margin:8px 0 0")
+              | So tai khoan:
+              = ' '
+              span(data-payment-account-number)= (checkoutConfig && checkoutConfig.accountNumber) || '1234567890'
+            p(style="margin:8px 0 0")
+              | Chu tai khoan:
+              = ' '
+              span(data-payment-account-name)= (checkoutConfig && checkoutConfig.accountName) || 'NGUYEN VAN A'
+            p(style="margin:8px 0 0") Noi dung chuyen khoan se tu dong gan ma don hang sau khi dat thanh cong.
+
+        button.btn(type="submit") Dat hang ngay
+        #order-result.order-result(data-order-result hidden)= ''
+        .payment-status-banner(data-payment-status-banner hidden)= ''
+        .qr-payment-panel(data-qr-payment-panel hidden)
+          h3(style="margin:0") Quet QR de thanh toan
+          img(src="" alt="Ma QR thanh toan" data-qr-image hidden)
+          dl
+            dt Ma don
+            dd(data-qr-order-number) -
+            dt Tong tien
+            dd(data-qr-amount) -
+            dt Ngan hang
+            dd(data-qr-bank-name) -
+            dt So tai khoan
+            dd(data-qr-account-number) -
+            dt Chu tai khoan
+            dd(data-qr-account-name) -
+            dt Noi dung CK
+            dd(data-qr-transfer-note) -
+          p.muted(style="margin:0") Sau khi chuyen khoan, vui long giu nguyen trang nay. He thong se thong bao ngay khi thanh toan duoc xac nhan.
+
+    aside.checkout-summary.section-card
+      h2(style="margin-top:0") Tom tat don hang
+      p.muted(style="margin:6px 0 0") Tong so san pham: #[strong(data-checkout-items) 0]
+      ul(data-checkout-list)
+      form.stack(data-checkout-promo-form style="margin-top:16px")
+        .field
+          label(for="checkout-promo") Ma giam gia
+          input#checkout-promo(type="text" name="code" placeholder="SOUNDHOUSE10 hoac FREESHIP")
+        button.btn-ghost(type="submit") Ap dung ma
+      hr(style="border-color:rgba(255,255,255,0.08);margin:20px 0")
+      ul
+        li
+          span Tam tinh
+          strong(data-checkout-subtotal) 0d
+        li
+          span Giam gia
+          strong(data-checkout-discount) 0d
+        li
+          span Phi van chuyen
+          strong(data-checkout-shipping) 0d
+      .summary-strong
+        span Tong cong
+        strong(data-checkout-total) 0d
+
+block scripts
+  script(type="module" src="/js/checkout.js")

@@ -1,0 +1,50 @@
+extends ../../layouts/admin
+
+block content
+  .admin-page(data-admin-page="payment-settings")
+    .admin-section-head
+      .admin-section-head__copy
+        h2 Cau hinh thanh toan
+        p Thong tin dang duoc doc tu cau hinh he thong. Neu backend chua co API settings, trang nay se o che do chi xem.
+    .admin-grid.admin-grid--payment
+      .panel
+        .panel__header
+          .panel__title
+            h3 Thong tin tai khoan
+            p Dong bo tu env/backend checkout hien tai.
+          span.badge.badge--info= checkoutConfig.enabled ? 'Dang kich hoat' : 'Chua cau hinh'
+        .settings-grid
+          .field-readonly
+            span.field-readonly__label Ngan hang
+            strong= checkoutConfig.bankName || 'Chua co'
+          .field-readonly
+            span.field-readonly__label Ma ngan hang
+            strong= checkoutConfig.bankCode || 'Chua co'
+          .field-readonly
+            span.field-readonly__label So tai khoan
+            strong(data-copy-source="account-number")= checkoutConfig.accountNumber || 'Chua co'
+            button.admin-btn-secondary(type="button" data-copy-target="account-number") Sao chep
+          .field-readonly
+            span.field-readonly__label Chu tai khoan
+            strong(data-copy-source="account-name")= checkoutConfig.accountName || 'Chua co'
+            button.admin-btn-secondary(type="button" data-copy-target="account-name") Sao chep
+          .field-readonly
+            span.field-readonly__label Mau QR
+            strong= checkoutConfig.qrTemplate || 'compact2'
+          .field-readonly
+            span.field-readonly__label Noi dung chuyen khoan mac dinh
+            strong(data-copy-source="transfer-content") THANH TOAN DON HANG SOUNDHOUSE
+            button.admin-btn-secondary(type="button" data-copy-target="transfer-content") Sao chep
+      .panel
+        .panel__header
+          .panel__title
+            h3 Preview QR thanh toan
+            p Kiem tra nhanh thong tin QR cho luong chuyen khoan.
+        .payment-preview(data-payment-preview data-bank-code=checkoutConfig.bankCode data-account-number=checkoutConfig.accountNumber data-qr-template=checkoutConfig.qrTemplate)
+          .payment-preview__media
+            img(data-payment-qr alt="Ma QR thanh toan mau")
+          .payment-preview__body
+            p.helper QR duoc tao tu thong tin hien tai. Neu he thong chua du cau hinh, preview se hien trang thai trong.
+            .inline-actions
+              button.admin-btn(type="button" data-test-qr) Test QR
+              span.badge.badge--warning Read-only

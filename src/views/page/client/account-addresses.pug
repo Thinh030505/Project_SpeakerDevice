@@ -1,0 +1,129 @@
+extends ../../layouts/storefront
+
+block head
+  style.
+    .account-layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .account-sidebar,
+    .account-panel {
+      padding: 24px;
+    }
+    .account-nav {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .account-nav a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 14px;
+      text-decoration: none;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .account-nav a.is-active {
+      border-color: rgba(99, 106, 232, 0.35);
+      color: var(--accent);
+      background: rgba(99, 106, 232, 0.1);
+    }
+    .address-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .address-grid .field.full {
+      grid-column: 1 / -1;
+    }
+    .address-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .address-card {
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+    .address-card__head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+    .address-card__actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    @media (max-width: 960px) {
+      .account-layout,
+      .address-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+block content
+  .page-breadcrumb
+    a(href="/") Trang chu
+    span /
+    a(href="/account") Tai khoan
+    span /
+    span So dia chi
+
+  .page-hero
+    .pill Dia chi giao hang
+    h1 Quan ly so dia chi
+    p Tao, cap nhat, dat mac dinh va xoa dia chi truc tiep tu API nguoi dung.
+
+  .account-layout
+    aside.account-sidebar.section-card
+      h2(style="margin-top:0") Khu vuc tai khoan
+      nav.account-nav
+        a(href="/account") Ho so ca nhan
+        a.is-active(href="/account/addresses") So dia chi
+        a(href="/account/orders") Don hang cua toi
+
+    section.account-panel.section-card
+      h2(style="margin-top:0") Them dia chi moi
+      form.stack(data-account-address-form)
+        .address-grid(data-location-group)
+          .field
+            label(for="fullName") Nguoi nhan
+            input#fullName(type="text" name="fullName" required)
+          .field
+            label(for="phone") So dien thoai
+            input#phone(type="tel" name="phone" required)
+          .field
+            label(for="city") Tinh / Thanh pho
+            select#city(name="city" required data-location-city)
+              option(value="") Chon Tinh / Thanh pho
+          .field
+            label(for="district") Quan / Huyen
+            select#district(name="district" required data-location-district disabled)
+              option(value="") Chon Quan / Huyen
+          .field
+            label(for="ward") Phuong / Xa
+            select#ward(name="ward" required data-location-ward disabled)
+              option(value="") Chon Phuong / Xa
+          .field.full
+            label(for="address") Dia chi cu the
+            input#address(type="text" name="address" required placeholder="So nha, ten duong, toa nha...")
+          .field.full
+            label(for="note") Ghi chu
+            input#note(type="text" name="note")
+        label(style="display:flex;gap:10px;align-items:center")
+          input(type="checkbox" name="isDefault")
+          span Dat lam dia chi mac dinh
+        button.btn(type="submit") Luu dia chi
+
+      .address-list(data-account-address-list)
+      p.muted(data-account-address-empty) Chua co dia chi nao.
+
+block scripts
+  script(type="module" src="/js/account.js")

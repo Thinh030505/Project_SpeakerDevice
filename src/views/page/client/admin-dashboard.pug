@@ -1,0 +1,36 @@
+extends ../../layouts/admin
+
+block content
+  .admin-page(data-admin-page="dashboard")
+    .stats-grid(data-dashboard-stats)
+    .admin-grid
+      .panel(style="grid-column: span 7")
+        .panel__header
+          .panel__title
+            h3 Don hang moi nhat
+            p Theo doi cac don vua tao de xu ly nhanh.
+        .record-list(data-dashboard-orders)
+      .panel(style="grid-column: span 5")
+        .panel__header
+          .panel__title
+            h3 Tin nhan moi
+            p Lien he va yeu cau tu website.
+        .record-list(data-dashboard-contacts)
+    .admin-grid
+      .panel(style="grid-column: span 7")
+        .panel__header
+          .panel__title
+            h3 San pham ton kho thap
+            p Canh bao de bo sung hang truoc khi het kho.
+        .record-list(data-dashboard-low-stock)
+      .panel(style="grid-column: span 5")
+        .panel__header
+          .panel__title
+            h3 Dieu huong nhanh
+            p Di chuyen nhanh toi cac khu quan tri chinh.
+        .inline-actions
+          a.admin-btn-secondary(href="/admin/products") Quan ly san pham
+          a.admin-btn-secondary(href="/admin/orders") Quan ly don hang
+          a.admin-btn-secondary(href="/admin/categories") Quan ly danh muc
+          a.admin-btn-secondary(href="/admin/brands") Quan ly thuong hieu
+          a.admin-btn-secondary(href="/admin/users") Quan ly nguoi dung

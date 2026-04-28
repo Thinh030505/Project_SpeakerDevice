@@ -1,0 +1,229 @@
+doctype html
+html(lang="vi")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Đăng nhập - SoundHouse
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet")
+    style.
+      :root {
+        --auth-card: rgba(29, 33, 40, 0.82);
+        --auth-border: rgba(255, 255, 255, 0.08);
+        --auth-input-bg: rgba(15, 17, 22, 0.85);
+        --auth-input-border: rgba(255, 255, 255, 0.12);
+        --auth-text: #f3f4f6;
+        --auth-muted: #9ca3af;
+        --auth-link: #e879f9;
+        --auth-glow: rgba(99, 106, 232, 0.55);
+        --auth-gradient: linear-gradient(135deg, #636ae8 0%, #4f56d4 50%, #3b3fb8 100%);
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        min-height: 100vh;
+        font-family: Inter, system-ui, sans-serif;
+        background: radial-gradient(1200px 800px at 20% 10%, rgba(99, 106, 232, 0.15), transparent 50%),
+          radial-gradient(900px 600px at 90% 80%, rgba(56, 189, 248, 0.08), transparent 45%),
+          #0a0c10;
+        color: var(--auth-text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 20px;
+        -webkit-font-smoothing: antialiased;
+      }
+      .auth-wrap {
+        width: 100%;
+        max-width: 420px;
+      }
+      .auth-card {
+        position: relative;
+        border-radius: 14px;
+        padding: 36px 32px 32px;
+        background: var(--auth-card);
+        border: 1px solid var(--auth-border);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow: -6px 0 32px var(--auth-glow), 0 24px 48px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        overflow: hidden;
+      }
+      .auth-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(180deg, #636ae8, #38bdf8);
+        opacity: 0.95;
+        border-radius: 14px 0 0 14px;
+      }
+      .auth-h1 {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 6px;
+      }
+      .auth-sub {
+        font-size: 14px;
+        color: var(--auth-muted);
+        margin-bottom: 28px;
+      }
+      .auth-field { margin-bottom: 18px; }
+      .auth-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--auth-muted);
+        margin-bottom: 8px;
+      }
+      .auth-input {
+        width: 100%;
+        height: 46px;
+        padding: 0 14px;
+        border-radius: 8px;
+        border: 1px solid var(--auth-input-border);
+        background: var(--auth-input-bg);
+        color: var(--auth-text);
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      .auth-input:focus {
+        border-color: rgba(99, 106, 232, 0.55);
+        box-shadow: 0 0 0 3px rgba(99, 106, 232, 0.15);
+      }
+      .auth-input::placeholder { color: rgba(156, 163, 175, 0.75); }
+      .auth-row-link {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: -8px;
+        margin-bottom: 22px;
+      }
+      .auth-link {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--auth-link);
+        text-decoration: none;
+      }
+      .auth-link:hover { text-decoration: underline; }
+      .auth-btn {
+        width: 100%;
+        height: 48px;
+        border: 0;
+        border-radius: 8px;
+        background: var(--auth-gradient);
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        box-shadow: 0 8px 24px rgba(99, 106, 232, 0.35);
+      }
+      .auth-btn:disabled { opacity: 0.65; cursor: not-allowed; }
+      .auth-switch {
+        text-align: center;
+        margin-top: 22px;
+        font-size: 14px;
+        color: var(--auth-muted);
+      }
+      .auth-switch a {
+        color: var(--auth-link);
+        font-weight: 500;
+        text-decoration: none;
+      }
+      .auth-switch a:hover { text-decoration: underline; }
+      .auth-divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 26px 0 18px;
+        color: var(--auth-muted);
+        font-size: 13px;
+      }
+      .auth-divider::before,
+      .auth-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .auth-social {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+      }
+      .auth-soc-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        border: 1px solid var(--auth-input-border);
+        background: rgba(15, 17, 22, 0.6);
+        color: var(--auth-muted);
+        font-size: 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .auth-err {
+        display: none;
+        margin-bottom: 16px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: rgba(222, 59, 64, 0.15);
+        border: 1px solid rgba(222, 59, 64, 0.35);
+        color: #fecaca;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+      .auth-err.is-on { display: block; }
+
+  body
+    .auth-wrap
+      .auth-card
+        h1.auth-h1 Đăng nhập
+        p.auth-sub Chào mừng bạn quay lại!
+        p#auth-err.auth-err(role="alert")
+
+        form#form-login(autocomplete="on" novalidate)
+          .auth-field
+            label.auth-label(for="username") Email hoặc tên đăng nhập
+            input#username.auth-input(
+              type="text"
+              name="username"
+              required
+              autocomplete="username"
+              placeholder="nguyenvana@gmail.com hoặc ten_dang_nhap"
+            )
+          .auth-field
+            label.auth-label(for="password") Mật khẩu
+            input#password.auth-input(
+              type="password"
+              name="password"
+              required
+              autocomplete="current-password"
+              placeholder="••••••••"
+              minlength="1"
+            )
+          .auth-row-link
+            a.auth-link(href="/forgot-password") Quên mật khẩu?
+          button.auth-btn(type="submit" id="btn-login") Đăng nhập
+
+        p.auth-switch
+          | Chưa có tài khoản? 
+          a(href="/register") Đăng ký ngay
+
+        .auth-divider
+          span Hoặc đăng nhập với
+        .auth-social
+          button.auth-soc-btn(type="button" aria-label="Facebook - sắp có") f
+          button.auth-soc-btn(type="button" aria-label="Google - sắp có") G
+          button.auth-soc-btn(type="button" aria-label="Apple - sắp có") A
+
+    script(type="module" src="/js/auth-pages.js")

@@ -1,0 +1,107 @@
+{
+    "createProduct": {
+        "name": "Áo thun nam cao cấp",
+        "description": "Áo thun nam chất liệu cotton 100%, thoáng mát, thấm hút mồ hôi tốt. Thiết kế basic dễ phối đồ, phù hợp mọi lứa tuổi.",
+        "shortDescription": "Áo thun cotton 100% cao cấp",
+        "brand": "Nike",
+        "category": "YOUR_CATEGORY_ID_HERE",
+        "variants": [
+            {
+                "sku": "TSHIRT-S-BLACK-001",
+                "attributes": {
+                    "size": "S",
+                    "color": "Black"
+                },
+                "price": 299000,
+                "compareAtPrice": 399000,
+                "stock": 50,
+                "images": [
+                    "https://via.placeholder.com/400/000000/FFFFFF?text=Black+S"
+                ],
+                "weight": 200,
+                "isActive": true
+            },
+            {
+                "sku": "TSHIRT-M-BLACK-001",
+                "attributes": {
+                    "size": "M",
+                    "color": "Black"
+                },
+                "price": 299000,
+                "compareAtPrice": 399000,
+                "stock": 100,
+                "images": [
+                    "https://via.placeholder.com/400/000000/FFFFFF?text=Black+M"
+                ],
+                "weight": 220,
+                "isActive": true
+            },
+            {
+                "sku": "TSHIRT-L-BLACK-001",
+                "attributes": {
+                    "size": "L",
+                    "color": "Black"
+                },
+                "price": 319000,
+                "compareAtPrice": 419000,
+                "stock": 80,
+                "images": [
+                    "https://via.placeholder.com/400/000000/FFFFFF?text=Black+L"
+                ],
+                "weight": 240,
+                "isActive": true
+            },
+            {
+                "sku": "TSHIRT-S-WHITE-001",
+                "attributes": {
+                    "size": "S",
+                    "color": "White"
+                },
+                "price": 299000,
+                "compareAtPrice": 399000,
+                "stock": 60,
+                "images": [
+                    "https://via.placeholder.com/400/FFFFFF/000000?text=White+S"
+                ],
+                "weight": 200,
+                "isActive": true
+            },
+            {
+                "sku": "TSHIRT-M-WHITE-001",
+                "attributes": {
+                    "size": "M",
+                    "color": "White"
+                },
+                "price": 299000,
+                "compareAtPrice": 399000,
+                "stock": 120,
+                "images": [
+                    "https://via.placeholder.com/400/FFFFFF/000000?text=White+M"
+                ],
+                "weight": 220,
+                "isActive": true
+            }
+        ],
+        "images": [
+            "https://via.placeholder.com/600/333333/FFFFFF?text=Product+Main+Image",
+            "https://via.placeholder.com/600/666666/FFFFFF?text=Product+Image+2"
+        ],
+        "tags": [
+            "áo thun",
+            "nam",
+            "cotton",
+            "basic",
+            "nike"
+        ],
+        "featured": true,
+        "seo": {
+            "title": "Áo thun nam cao cấp Nike - Cotton 100%",
+            "description": "Mua áo thun nam Nike chính hãng, chất liệu cotton 100%, giá tốt, freeship toàn quốc",
+            "keywords": [
+                "áo thun nam",
+                "áo thun nike",
+                "áo thun cotton"
+            ]
+        }
+    }
+}

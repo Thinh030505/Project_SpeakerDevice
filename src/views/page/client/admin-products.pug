@@ -1,0 +1,121 @@
+extends ../../layouts/admin
+
+block content
+  .admin-page(data-admin-page="products")
+    .admin-section-head
+      .admin-section-head__copy
+        h2 Quan ly san pham
+        p Danh sach, loc, phan trang, chinh sua variants va upload anh Cloudinary trong mot man hinh.
+      .inline-actions
+        button.admin-btn(type="button" data-product-create-new) Them san pham
+    .split
+      .panel
+        .panel__header
+          .panel__title
+            h3 Danh sach san pham
+            p Tim kiem nhanh theo ten, danh muc, thuong hieu va trang thai.
+        .admin-toolbar
+          .toolbar-item.toolbar-item--grow
+            input(type="search" placeholder="Tim theo ten san pham..." data-product-search)
+          .toolbar-item
+            select(data-product-category-filter)
+              option(value="") Tat ca danh muc
+          .toolbar-item
+            select(data-product-brand-filter)
+              option(value="") Tat ca thuong hieu
+          .toolbar-item
+            select(data-product-status)
+              option(value="active") Dang hien
+              option(value="draft") Nhap
+              option(value="inactive") Tam an
+              option(value="archived") Da luu tru
+          .toolbar-item
+            select(data-product-featured-filter)
+              option(value="") Moi muc
+              option(value="true") Noi bat
+              option(value="false") Khong noi bat
+          .toolbar-item
+            select(data-product-sort)
+              option(value="-createdAt") Moi nhat
+              option(value="createdAt") Cu nhat
+              option(value="price_asc") Gia tang dan
+              option(value="price_desc") Gia giam dan
+              option(value="name") Ten A-Z
+          .toolbar-actions
+            button.admin-btn-secondary(type="button" data-product-refresh) Tai lai
+        .list-shell
+          .record-list(data-product-list)
+          .empty-state(data-product-empty hidden)
+            strong Chua co san pham phu hop
+            p Thu doi bo loc hoac tao san pham moi.
+          .pagination(data-product-pagination)
+      .panel
+        .panel__header
+          .panel__title
+            h3 Form san pham
+            p Bam sat schema backend, co validate, preview anh va editor variants.
+        form.stack(data-product-form novalidate)
+          input(type="hidden" name="id")
+          .form-alert(data-product-form-errors hidden)
+          .form-section
+            .form-section__head
+              strong Thong tin co ban
+              p Nhap cac thuoc tinh chinh cua san pham.
+            .field
+              label(for="product-name") Ten san pham
+              input#product-name(type="text" name="name" maxlength="200" required)
+            .field-grid
+              .field
+                label(for="product-category") Danh muc
+                select#product-category(name="category" required data-product-category-options)
+                  option(value="") Chon danh muc
+              .field
+                label(for="product-brand") Thuong hieu
+                input#product-brand(type="text" name="brand" list="brand-suggestions" placeholder="Marshall, JBL, Bose...")
+            .field
+              label(for="product-short") Mo ta ngan
+              textarea#product-short(name="shortDescription" maxlength="200")
+            .field
+              label(for="product-description") Mo ta chi tiet
+              textarea#product-description(name="description" required)
+            .field-grid
+              .field
+                label(for="product-status-select") Trang thai
+                select#product-status-select(name="status")
+                  option(value="active") Dang hien
+                  option(value="draft") Nhap
+                  option(value="inactive") Tam an
+                  option(value="archived") Luu tru
+              .field
+                label(for="product-featured") San pham noi bat
+                select#product-featured(name="featured")
+                  option(value="true") Co
+                  option(value="false") Khong
+          .form-section
+            .form-section__head
+              strong Hinh anh & tags
+              p Upload nhieu anh, preview truoc khi luu va co placeholder neu anh loi.
+            .field
+              label(for="product-images") URL anh chung
+              textarea#product-images(name="imagesText" placeholder="https://...")
+            .upload-dropzone
+              input#product-upload(type="file" accept="image/*" multiple data-product-image-upload)
+              .inline-actions
+                button.admin-btn-secondary(type="button" data-product-upload-trigger) Upload len Cloudinary
+                span.helper(data-product-upload-count) Chua chon file nao.
+              .helper Khong the submit khi anh dang upload.
+            .stack(data-product-image-gallery)
+            .field
+              label(for="product-tags") Tags
+              input#product-tags(type="text" name="tagsText" placeholder="loa bluetooth, premium, portable")
+          .form-section
+            .variant-card__head
+              div
+                strong Variants
+                p.helper It nhat 1 variant. Mỗi variant can gia, ton kho, anh va trang thai rieng.
+              button.admin-btn-secondary(type="button" data-add-variant) Them variant
+            .stack(data-product-variants)
+          .inline-actions
+            button.admin-btn(type="submit" data-product-submit) Luu san pham
+            button.admin-btn-ghost(type="button" data-product-reset) Lam moi form
+        datalist#brand-suggestions(data-brand-suggestions="true")

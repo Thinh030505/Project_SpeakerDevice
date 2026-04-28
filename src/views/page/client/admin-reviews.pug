@@ -1,0 +1,33 @@
+extends ../../layouts/admin
+
+block content
+  .admin-page(data-admin-page="reviews")
+    .panel
+      .panel__header
+        .panel__title
+          h3 Quan ly danh gia
+          p Duyet, an/hien va xoa danh gia spam. UI khong crash neu user hoac san pham da bi xoa.
+      .admin-toolbar
+        .toolbar-item.toolbar-item--grow
+          input(type="search" placeholder="Tim ten nguoi danh gia hoac noi dung..." data-review-search)
+        .toolbar-item
+          select(data-review-status)
+            option(value="") Tat ca trang thai
+            option(value="active") Dang hien
+            option(value="hidden") Dang an
+        .toolbar-item
+          select(data-review-rating)
+            option(value="") Moi so sao
+            option(value="5") 5 sao
+            option(value="4") 4 sao
+            option(value="3") 3 sao
+            option(value="2") 2 sao
+            option(value="1") 1 sao
+        .toolbar-actions
+          button.admin-btn-secondary(type="button" data-review-refresh) Tai lai
+      .list-shell
+        .record-list(data-review-list)
+        .empty-state(data-review-empty hidden)
+          strong Chua co danh gia phu hop
+          p Thu doi bo loc hoac tu khoa tim kiem.
+        .pagination(data-review-pagination)

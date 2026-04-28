@@ -1,0 +1,225 @@
+extends ../../layouts/storefront
+
+block head
+  style.
+    .cart-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 24px;
+      align-items: start;
+    }
+    .cart-items,
+    .cart-summary,
+    .cart-recommend {
+      padding: 24px;
+    }
+    .cart-item {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr) auto;
+      gap: 18px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      will-change: opacity, transform;
+    }
+    .cart-item.is-updating {
+      opacity: 0.58;
+      pointer-events: none;
+      transform: translateY(2px);
+    }
+    .cart-item:last-child {
+      border-bottom: 0;
+    }
+    .cart-item__image {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .cart-item__content {
+      display: grid;
+      gap: 8px;
+      align-content: center;
+    }
+    .cart-item__meta {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .cart-item__title {
+      font-size: 20px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .cart-item__price {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .cart-item__price span {
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+    .cart-item__actions {
+      display: grid;
+      gap: 12px;
+      justify-items: end;
+      align-content: center;
+      min-width: 160px;
+    }
+    .cart-item__line {
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .cart-item__remove {
+      border: 0;
+      background: transparent;
+      color: var(--danger);
+      cursor: pointer;
+    }
+    .qty-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .qty-control button {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      border: 0;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      cursor: pointer;
+    }
+    .summary-list {
+      display: grid;
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+    }
+    .summary-row strong {
+      color: var(--text);
+      transition: color 0.22s ease;
+    }
+    .recommend-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .recommend-card {
+      overflow: hidden;
+    }
+    .recommend-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .recommend-card__body {
+      padding: 16px;
+      display: grid;
+      gap: 8px;
+    }
+    .empty-state {
+      padding: 42px 20px;
+      color: var(--muted);
+      text-align: center;
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+    }
+    @media (max-width: 960px) {
+      .cart-layout,
+      .recommend-grid {
+        grid-template-columns: 1fr;
+      }
+      .cart-item {
+        grid-template-columns: 1fr;
+      }
+      .cart-item__actions {
+        justify-items: start;
+      }
+    }
+
+block content
+  .page-breadcrumb
+    a(href="/") Trang chủ
+    span /
+    span Giỏ hàng
+
+  .page-hero
+    .pill Giỏ hàng thông minh
+    h1 Hoàn thiện giỏ hàng của bạn
+    p Dữ liệu giỏ hàng đang kết nối trực tiếp với API, hỗ trợ tăng giảm số lượng, xóa sản phẩm, áp mã giảm giá và chuyển sang checkout thật.
+
+  .cart-layout
+    section.cart-items.section-card
+      .stack
+        div
+          h2(style="margin:0") Sản phẩm trong giỏ
+          p.muted(style="margin:8px 0 0") Tổng số sản phẩm: #[strong(data-summary-count) 0]
+        .empty-state(data-cart-empty hidden)
+          p Giỏ hàng đang trống.
+          p Hãy quay lại danh mục để thêm sản phẩm mới.
+        div(data-cart-items)
+
+    aside.cart-summary.section-card
+      h2(style="margin:0") Tóm tắt đơn hàng
+      form.stack(data-promo-form style="margin-top:16px")
+        .field
+          label(for="promo-code") Mã giảm giá
+          input#promo-code(type="text" name="code" placeholder="SOUNDHOUSE10 hoặc FREESHIP")
+        button.btn(type="submit") Áp dụng mã
+      .summary-list
+        .summary-row
+          span Tạm tính
+          strong(data-summary-subtotal) 0đ
+        .summary-row
+          span Phí vận chuyển
+          strong(data-summary-shipping) 0đ
+        .summary-row
+          span Giảm giá
+          strong(data-summary-discount) 0đ
+        .summary-row
+          span Mã đang dùng
+          strong(data-promo-current) Chưa áp dụng
+      hr(style="border-color:rgba(255,255,255,0.08);margin:20px 0")
+      .summary-row(style="font-size:18px")
+        span Tổng cộng
+        strong(data-summary-total) 0đ
+      .stack(style="margin-top:18px")
+        button.btn(type="button" data-cart-checkout) Tiến hành thanh toán
+        a.btn-ghost(href="/category") Tiếp tục mua sắm
+
+  if recommendations && recommendations.length
+    section.cart-recommend.section-card(style="margin-top:24px")
+      h2(style="margin-top:0") Gợi ý thêm cho bạn
+      .recommend-grid
+        each item in recommendations
+          article.recommend-card.card
+            img(src=item.image alt=item.name loading="lazy")
+            .recommend-card__body
+              strong= item.name
+              span.muted= item.brand
+              strong= item.priceText
+              if item.primaryVariant && item.isInStock
+                button.btn-ghost(
+                  type="button"
+                  data-add-recommendation
+                  data-product-id=item.id
+                  data-variant-id=item.primaryVariant.id
+                ) Thêm vào giỏ
+
+block scripts
+  script(type="module" src="/js/cart.js")

@@ -1,0 +1,111 @@
+extends ../../layouts/storefront
+
+block head
+  style.
+    .account-layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .account-sidebar,
+    .account-panel {
+      padding: 24px;
+    }
+    .account-nav {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .account-nav a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 14px;
+      text-decoration: none;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .account-nav a.is-active {
+      border-color: rgba(99, 106, 232, 0.35);
+      color: var(--accent);
+      background: rgba(99, 106, 232, 0.1);
+    }
+    .account-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .account-grid .field.full {
+      grid-column: 1 / -1;
+    }
+    .account-note {
+      margin-top: 16px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    @media (max-width: 960px) {
+      .account-layout,
+      .account-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+block content
+  .page-breadcrumb
+    a(href="/") Trang chu
+    span /
+    span Tai khoan
+
+  .page-hero
+    .pill Tai khoan ca nhan
+    h1 Thong tin tai khoan
+    p Cap nhat thong tin ca nhan va dong bo voi API nguoi dung hien co.
+
+  .account-layout
+    aside.account-sidebar.section-card
+      h2(style="margin-top:0") Khu vuc tai khoan
+      p.muted Quan ly thong tin, dia chi va don hang cua ban.
+      nav.account-nav
+        a.is-active(href="/account") Ho so ca nhan
+        a(href="/account/addresses") So dia chi
+        a(href="/account/orders") Don hang cua toi
+
+    section.account-panel.section-card
+      h2(style="margin-top:0") Ho so
+      form.stack(data-account-profile-form)
+        .account-grid
+          .field
+            label(for="firstName") Ten
+            input#firstName(type="text" name="firstName" placeholder="Nguyen")
+          .field
+            label(for="lastName") Ho
+            input#lastName(type="text" name="lastName" placeholder="Van A")
+          .field
+            label(for="email") Email
+            input#email(type="email" name="email" readonly)
+          .field
+            label(for="phone") So dien thoai
+            input#phone(type="tel" name="phone" placeholder="0912345678")
+          .field
+            label(for="dateOfBirth") Ngay sinh
+            input#dateOfBirth(type="date" name="dateOfBirth")
+          .field
+            label(for="city") Thanh pho
+            input#city(type="text" name="city" placeholder="TP. Ho Chi Minh")
+          .field.full
+            label(for="street") Dia chi
+            input#street(type="text" name="street" placeholder="123 Le Loi")
+          .field
+            label(for="state") Quan / Huyen
+            input#state(type="text" name="state" placeholder="Quan 1")
+          .field
+            label(for="zipCode") Ma buu chinh
+            input#zipCode(type="text" name="zipCode" placeholder="700000")
+          .field.full
+            label(for="country") Quoc gia
+            input#country(type="text" name="country" placeholder="Viet Nam")
+        button.btn(type="submit") Luu thay doi
+      p.account-note(data-account-profile-message) Can dang nhap de su dung day du tinh nang tai khoan.
+
+block scripts
+  script(type="module" src="/js/account.js")

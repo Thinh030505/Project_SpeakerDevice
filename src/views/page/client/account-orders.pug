@@ -1,0 +1,97 @@
+extends ../../layouts/storefront
+
+block head
+  style.
+    .account-layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+    .account-sidebar,
+    .account-panel {
+      padding: 24px;
+    }
+    .account-nav {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .account-nav a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 14px;
+      text-decoration: none;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .account-nav a.is-active {
+      border-color: rgba(99, 106, 232, 0.35);
+      color: var(--accent);
+      background: rgba(99, 106, 232, 0.1);
+    }
+    .order-list {
+      display: grid;
+      gap: 16px;
+    }
+    .order-card {
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+    .order-card__head,
+    .order-card__meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .order-card__meta {
+      margin-top: 10px;
+      color: var(--muted);
+    }
+    .order-card__items {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .order-card__actions {
+      margin-top: 14px;
+      display: flex;
+      gap: 12px;
+    }
+    @media (max-width: 960px) {
+      .account-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+block content
+  .page-breadcrumb
+    a(href="/") Trang chu
+    span /
+    a(href="/account") Tai khoan
+    span /
+    span Don hang cua toi
+
+  .page-hero
+    .pill Don hang
+    h1 Theo doi don hang
+    p Xem danh sach don, chi tiet tung don va huy don neu van con o trang thai cho xu ly.
+
+  .account-layout
+    aside.account-sidebar.section-card
+      h2(style="margin-top:0") Khu vuc tai khoan
+      nav.account-nav
+        a(href="/account") Ho so ca nhan
+        a(href="/account/addresses") So dia chi
+        a.is-active(href="/account/orders") Don hang cua toi
+
+    section.account-panel.section-card
+      h2(style="margin-top:0") Lich su don hang
+      .order-list(data-account-order-list)
+      p.muted(data-account-order-empty) Chua co don hang nao.
+
+block scripts
+  script(type="module" src="/js/account.js")

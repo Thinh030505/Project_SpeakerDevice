@@ -1,0 +1,60 @@
+extends ../../layouts/admin
+
+block content
+  .admin-page(data-admin-page="users")
+    .split
+      .panel
+        .panel__header
+          .panel__title
+            h3 Danh sach nguoi dung
+            p Tim theo username, email va cap nhat quyen truy cap an toan.
+        .admin-toolbar
+          .toolbar-item.toolbar-item--grow
+            input(type="search" placeholder="Tim username, email..." data-user-search)
+          .toolbar-actions
+            button.admin-btn-secondary(type="button" data-user-refresh) Tai lai
+        .list-shell
+          .record-list(data-user-list)
+          .empty-state(data-user-empty hidden)
+            strong Chua co nguoi dung phu hop
+            p Thu tim lai voi tu khoa khac.
+          .pagination(data-user-pagination)
+      .panel
+        .panel__header
+          .panel__title
+            h3 Cap nhat nguoi dung
+            p Khong cho admin tu khoa chinh minh va can confirm truoc thay doi nhay cam.
+        form.stack(data-user-form novalidate)
+          input(type="hidden" name="id")
+          .form-section
+            .field-grid
+              .field
+                label(for="user-username") Username
+                input#user-username(type="text" name="username" required)
+              .field
+                label(for="user-email") Email
+                input#user-email(type="email" name="email" required)
+            .field-grid
+              .field
+                label(for="user-role") Role
+                select#user-role(name="role")
+                  option(value="user") User
+                  option(value="admin") Admin
+              .field
+                label(for="user-active") Trang thai
+                select#user-active(name="isActive")
+                  option(value="true") Hoat dong
+                  option(value="false") Tam khoa
+            .field-grid
+              .field
+                label(for="user-first-name") Ten
+                input#user-first-name(type="text" name="profile.firstName")
+              .field
+                label(for="user-last-name") Ho
+                input#user-last-name(type="text" name="profile.lastName")
+            .field
+              label(for="user-phone") So dien thoai
+              input#user-phone(type="text" name="profile.phone")
+          .inline-actions
+            button.admin-btn(type="submit") Luu nguoi dung
+            button.admin-btn-ghost(type="button" data-user-reset) Lam moi
