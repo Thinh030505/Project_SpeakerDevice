@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
+import env from '../config/env.js';
 
 dotenv.config({ quiet: true });
 
-const MONGO_URI = process.env.MONGODB_URI;
+const MONGO_URI = env.mongodbUri;
 
 const makeVariant = (sku, attributes, price, stock, compareAtPrice = null, imageSeed = sku) => ({
     _id: new mongoose.Types.ObjectId(),

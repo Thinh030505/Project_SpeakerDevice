@@ -7,7 +7,7 @@ import cloudinary from '../config/cloudinary.js';
 
 dotenv.config({ quiet: true });
 
-const MONGO_URI = process.env.MONGODB_URI;
+const MONGO_URI = env.mongodbUri;
 
 const isCloudinaryUrl = (url) => String(url || '').includes('res.cloudinary.com');
 
@@ -26,7 +26,7 @@ const uploadRemoteImage = async (url, folder, publicId) => {
 
 const run = async () => {
     if (!MONGO_URI) {
-        throw new Error('Thieu MONGODB_URI trong .env');
+        throw new Error('Thieu MongoDB URI. Hay set MONGO_URI hoac MONGODB_URI.');
     }
 
     if (!env.cloudinaryCloudName || !env.cloudinaryApiKey || !env.cloudinaryApiSecret) {

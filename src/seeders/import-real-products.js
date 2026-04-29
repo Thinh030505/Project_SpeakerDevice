@@ -3,10 +3,11 @@ import mongoose from 'mongoose';
 import Product from '../models/Product.js';
 import Category from '../models/Category.js';
 import User from '../models/User.js';
+import env from '../config/env.js';
 
 dotenv.config({ quiet: true });
 
-const MONGO_URI = process.env.MONGODB_URI;
+const MONGO_URI = env.mongodbUri;
 
 const CATEGORY_DEFS = {
     'loa-bluetooth': {
@@ -485,7 +486,7 @@ const buildSeo = (product) => ({
 
 const run = async () => {
     if (!MONGO_URI) {
-        throw new Error('Thieu MONGODB_URI trong .env');
+        throw new Error('Thieu MongoDB URI. Hay set MONGO_URI hoac MONGODB_URI.');
     }
 
     await mongoose.connect(MONGO_URI, { serverSelectionTimeoutMS: 10000 });

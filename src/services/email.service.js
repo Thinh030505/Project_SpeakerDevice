@@ -7,7 +7,10 @@ const transporter = nodemailer.createTransport({
     host: emailConfig.host,
     port: emailConfig.port,
     secure: emailConfig.secure,
-    auth: emailConfig.auth
+    auth: emailConfig.auth,
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 20000
 });
 
 let emailHealthy = false;

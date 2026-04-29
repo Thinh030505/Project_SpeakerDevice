@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 
 dotenv.config({ quiet: true });
 
+const MONGO_ENV_KEYS = ['MONGO_URI', 'MONGODB_URI', 'MONGODB_URL', 'DATABASE_URL', 'DB_URL'];
+
 const toBoolean = (value, fallback = false) => {
     if (value === undefined) {
         return fallback;
@@ -16,13 +18,33 @@ const toNumber = (value, fallback) => {
 };
 
 const normalizeSecret = (value) => String(value || '').replace(/\s+/g, '').trim();
+const normalizeString = (value) => String(value || '').trim();
+
+const resolveMongoConfig = () => {
+    for (const key of MONGO_ENV_KEYS) {
+        const value = normalizeString(process.env[key]);
+        if (value) {
+            return { key, value };
+        }
+    }
+
+    return { key: null, value: '' };
+};
+
+const { key: mongoEnvKey, value: mongoEnvValue } = resolveMongoConfig();
+
+export const maskMongoUri = (uri) => String(uri || '')
+    .replace(/\/\/[^:\/?#]+:[^@\/?#]+@/, '//***:***@');
+
+export const isValidMongoUri = (uri) => /^mongodb(\+srv)?:\/\//.test(String(uri || '').trim());
 
 export const env = {
     nodeEnv: process.env.NODE_ENV || 'development',
     port: toNumber(process.env.PORT, 3000),
     frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3000',
     appName: process.env.EMAIL_FROM_NAME || 'BE Products',
-    mongodbUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/product-management',
+    mongodbUri: mongoEnvValue,
+    mongoEnvKey,
     jwtSecret: process.env.JWT_SECRET || 'your-super-secret-jwt-key',
     jwtExpiresIn: process.env.JWT_EXPIRES_IN || '15m',
     jwtRefreshSecret: process.env.JWT_REFRESH_SECRET || 'your-super-secret-refresh-key',
@@ -52,6 +74,8 @@ export const env = {
     paymentQrTemplate: String(process.env.PAYMENT_QR_TEMPLATE || 'compact2').trim(),
     paymentQrImageUrl: String(process.env.PAYMENT_QR_IMAGE_URL || '').trim()
 };
+
+export const getMongoEnvKeys = () => [...MONGO_ENV_KEYS];
 
 export const getMissingOptionalEnv = () => {
     const optionalVars = [

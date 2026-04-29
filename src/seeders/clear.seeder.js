@@ -1,9 +1,15 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import env from '../config/env.js';
+
 dotenv.config({ quiet: true });
 
 async function clear() {
-    await mongoose.connect(process.env.MONGODB_URI, { serverSelectionTimeoutMS: 10000 });
+    if (!env.mongodbUri) {
+        throw new Error('Thieu MongoDB URI. Hay set MONGO_URI hoac MONGODB_URI.');
+    }
+
+    await mongoose.connect(env.mongodbUri, { serverSelectionTimeoutMS: 10000 });
     const db = mongoose.connection.db;
     await db.collection('products').deleteMany({});
     await db.collection('categories').deleteMany({});

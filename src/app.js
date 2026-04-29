@@ -25,6 +25,9 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Render sits behind a reverse proxy and forwards client IP via X-Forwarded-For.
+app.set('trust proxy', 1);
+
 connectDB();
 verifyEmail();
 
