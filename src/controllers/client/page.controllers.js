@@ -9,6 +9,7 @@ import {
     getFallbackStorefront,
     normalizeProduct
 } from '../../utils/storefront.js';
+import { logInfo, logWarn } from '../../utils/logger.js';
 
 const baseLocals = {
     formatCurrency
@@ -320,6 +321,8 @@ export const renderHomePage = async (req, res, next) => {
                     .lean()
             ]);
 
+            logInfo(`Home page data loaded from DB: categories=${categoryDocs.length}, products=${productDocs.length}, banners=${bannerDocs.length}`);
+
             if (categoryDocs.length) {
                 featuredCategories = categoryDocs.map((category) => ({
                     id: String(category._id),
@@ -332,6 +335,8 @@ export const renderHomePage = async (req, res, next) => {
 
             if (productDocs.length) {
                 featuredProducts = productDocs.map(normalizeProduct);
+            } else {
+                logWarn('Home page is using fallback featured products because no active products were found in MongoDB.');
             }
 
             heroBanners = bannerDocs.map((banner) => ({
@@ -343,6 +348,8 @@ export const renderHomePage = async (req, res, next) => {
                 buttonText: banner.buttonText || 'Khám phá ngay',
                 buttonLink: banner.buttonLink || '/category'
             }));
+        } else {
+            logWarn('Home page is using fallback storefront because database is not connected.');
         }
 
         const heroProduct = featuredProducts[0] || fallback.product;

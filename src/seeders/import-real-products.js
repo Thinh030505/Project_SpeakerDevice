@@ -429,12 +429,25 @@ const PRODUCTS = [
     }
 ];
 
+const createBootstrapAdminUser = async () => {
+    const suffix = Date.now();
+    const adminUser = await User.create({
+        role: 'admin',
+        username: `seedadmin${suffix}`,
+        email: `seedadmin${suffix}@soundhouse.com`,
+        password: `SeedAdmin${suffix}`
+    });
+
+    console.log(`Created bootstrap admin user: ${adminUser.email}`);
+    return adminUser;
+};
+
 const pickAdminUser = async () => {
     const users = await User.find({}, '_id role email username').lean();
     const adminUser = users.find((user) => String(user.role).toLowerCase() === 'admin') || users[0];
 
     if (!adminUser) {
-        throw new Error('Khong tim thay user nao de gan createdBy cho product.');
+        return createBootstrapAdminUser();
     }
 
     return adminUser;
