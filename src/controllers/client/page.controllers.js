@@ -40,9 +40,13 @@ const buildCategoryFilters = (req) => ({
     search: String(req.query.search || '').trim(),
     brand: String(req.query.brand || '').trim(),
     sort: String(req.query.sort || 'featured'),
+    page: Math.max(Number.parseInt(req.query.page || '1', 10) || 1, 1),
     minPrice: Number(req.query.minPrice || 0),
     maxPrice: Number(req.query.maxPrice || 0)
 });
+
+const MOBILE_CATEGORY_PAGE_SIZE = 8;
+const DESKTOP_CATEGORY_PREVIEW_LIMIT = 24;
 
 const buildMockCategoryProducts = (category) => {
     const categoryRef = {
@@ -130,6 +134,52 @@ const getSortComparator = (sort) => {
     }
 };
 
+const paginateProducts = (items, page, perPage = MOBILE_CATEGORY_PAGE_SIZE) => {
+    const totalItems = items.length;
+    const totalPages = Math.max(1, Math.ceil(totalItems / perPage));
+    const currentPage = Math.min(Math.max(page || 1, 1), totalPages);
+    const startIndex = (currentPage - 1) * perPage;
+    const pagedItems = items.slice(startIndex, startIndex + perPage);
+    const startItem = totalItems ? startIndex + 1 : 0;
+    const endItem = totalItems ? startIndex + pagedItems.length : 0;
+
+    return {
+        items: pagedItems,
+        meta: {
+            currentPage,
+            totalPages,
+            totalItems,
+            perPage,
+            startItem,
+            endItem,
+            hasPrev: currentPage > 1,
+            hasNext: currentPage < totalPages
+        }
+    };
+};
+
+const buildPaginationItems = (currentPage, totalPages) => {
+    if (totalPages <= 1) {
+        return [1];
+    }
+
+    const pages = new Set([1, totalPages, currentPage, currentPage - 1, currentPage + 1]);
+    const normalized = [...pages]
+        .filter((page) => page >= 1 && page <= totalPages)
+        .sort((a, b) => a - b);
+
+    const items = [];
+
+    normalized.forEach((page, index) => {
+        if (index > 0 && page - normalized[index - 1] > 1) {
+            items.push('dots');
+        }
+        items.push(page);
+    });
+
+    return items;
+};
+
 const loadCategoryPageData = async (slug, filters) => {
     const resolvedSlug = filters.categorySlug || slug || '';
 
@@ -138,7 +188,8 @@ const loadCategoryPageData = async (slug, filters) => {
         const scopedProducts = resolvedSlug
             ? fallback.products.filter((product) => product.category?.slug === resolvedSlug)
             : fallback.products;
-        const products = applyCategoryFilters(scopedProducts, filters).sort(getSortComparator(filters.sort));
+        const allProducts = applyCategoryFilters(scopedProducts, filters).sort(getSortComparator(filters.sort));
+        const mobilePage = paginateProducts(allProducts, filters.page);
 
         return {
             category: resolvedSlug
@@ -148,9 +199,14 @@ const loadCategoryPageData = async (slug, filters) => {
                     name: 'Tat ca Loa',
                     slug: '',
                     description: 'Kham pha toan bo bo suu tap loa Bluetooth, soundbar, karaoke va loa thong minh tai SoundHouse.',
-                    productCount: products.length
+                    productCount: allProducts.length
                 },
-            products,
+            products: allProducts.slice(0, DESKTOP_CATEGORY_PREVIEW_LIMIT),
+            mobileProducts: mobilePage.items,
+            pagination: {
+                ...mobilePage.meta,
+                items: buildPaginationItems(mobilePage.meta.currentPage, mobilePage.meta.totalPages)
+            },
             relatedCategories: fallback.categories,
             brands: fallback.brands
         };
@@ -168,7 +224,32 @@ const loadCategoryPageData = async (slug, filters) => {
         category = await Category.findOne({ slug: resolvedSlug, status: 'active' }).lean();
 
         if (!category) {
-            return getFallbackStorefront();
+            const fallbackCategory = {
+                _id: 'all-categories',
+                name: 'Tat ca Loa',
+                slug: '',
+                description: 'Kham pha toan bo bo suu tap loa Bluetooth, soundbar, karaoke va loa thong minh tai SoundHouse.',
+                productCount: 0
+            };
+
+            return {
+                category: fallbackCategory,
+                products: [],
+                mobileProducts: [],
+                pagination: {
+                    currentPage: 1,
+                    totalPages: 1,
+                    totalItems: 0,
+                    perPage: MOBILE_CATEGORY_PAGE_SIZE,
+                    startItem: 0,
+                    endItem: 0,
+                    hasPrev: false,
+                    hasNext: false,
+                    items: [1]
+                },
+                relatedCategories: [],
+                brands: []
+            };
         }
 
         const descendants = await Category.findAllDescendants(category._id);
@@ -199,11 +280,21 @@ const loadCategoryPageData = async (slug, filters) => {
         name: { name: 1 }
     };
 
-    const [products, relatedCategories, brandDocs] = await Promise.all([
+    const totalProducts = await Product.countDocuments(query);
+    const currentPage = Math.min(filters.page, Math.max(1, Math.ceil(totalProducts / MOBILE_CATEGORY_PAGE_SIZE)));
+    const skip = (currentPage - 1) * MOBILE_CATEGORY_PAGE_SIZE;
+
+    const [desktopProducts, mobileProducts, relatedCategories, brandDocs] = await Promise.all([
         Product.find(query)
             .populate('category', 'name slug')
             .sort(sortMap[filters.sort] || sortMap.featured)
-            .limit(24)
+            .limit(DESKTOP_CATEGORY_PREVIEW_LIMIT)
+            .lean(),
+        Product.find(query)
+            .populate('category', 'name slug')
+            .sort(sortMap[filters.sort] || sortMap.featured)
+            .skip(skip)
+            .limit(MOBILE_CATEGORY_PAGE_SIZE)
             .lean(),
         Category.find(resolvedSlug ? {
             _id: { $ne: category._id },
@@ -224,31 +315,40 @@ const loadCategoryPageData = async (slug, filters) => {
         })
     ]);
 
-    if (!products.length) {
+    if (!desktopProducts.length) {
         const fallbackCategory = category || {
             _id: 'all-categories',
             name: 'Tat ca Loa',
             slug: '',
             description: 'Kham pha toan bo bo suu tap loa Bluetooth, soundbar, karaoke va loa thong minh tai SoundHouse.'
         };
-        const mockProducts = buildMockCategoryProducts(fallbackCategory)
+        const allMockProducts = buildMockCategoryProducts(fallbackCategory)
             .filter((product) => !resolvedSlug || product.category?.slug === resolvedSlug)
             .filter((product) => applyCategoryFilters([product], filters).length)
             .sort(getSortComparator(filters.sort));
+        const mobilePage = paginateProducts(allMockProducts, filters.page);
 
         return {
             category: resolvedSlug ? {
                 ...category,
-                productCount: mockProducts.length || category.productCount || 12
+                productCount: allMockProducts.length || category.productCount || 12
             } : {
                 ...fallbackCategory,
-                productCount: mockProducts.length
+                productCount: allMockProducts.length
             },
-            products: mockProducts,
+            products: allMockProducts.slice(0, DESKTOP_CATEGORY_PREVIEW_LIMIT),
+            mobileProducts: mobilePage.items,
+            pagination: {
+                ...mobilePage.meta,
+                items: buildPaginationItems(mobilePage.meta.currentPage, mobilePage.meta.totalPages)
+            },
             relatedCategories,
-            brands: [...new Set(mockProducts.map((product) => product.brand))].sort((a, b) => a.localeCompare(b, 'vi'))
+            brands: [...new Set(allMockProducts.map((product) => product.brand))].sort((a, b) => a.localeCompare(b, 'vi'))
         };
     }
+
+    const normalizedDesktopProducts = desktopProducts.map(normalizeProduct);
+    const normalizedMobileProducts = mobileProducts.map(normalizeProduct);
 
     return {
         category: resolvedSlug ? category : {
@@ -256,9 +356,21 @@ const loadCategoryPageData = async (slug, filters) => {
             name: 'Tat ca Loa',
             slug: '',
             description: 'Kham pha toan bo bo suu tap loa Bluetooth, soundbar, karaoke va loa thong minh tai SoundHouse.',
-            productCount: products.length
+            productCount: totalProducts
         },
-        products: products.map(normalizeProduct),
+        products: normalizedDesktopProducts,
+        mobileProducts: normalizedMobileProducts,
+        pagination: {
+            currentPage,
+            totalPages: Math.max(1, Math.ceil(totalProducts / MOBILE_CATEGORY_PAGE_SIZE)),
+            totalItems: totalProducts,
+            perPage: MOBILE_CATEGORY_PAGE_SIZE,
+            startItem: totalProducts ? skip + 1 : 0,
+            endItem: totalProducts ? skip + normalizedMobileProducts.length : 0,
+            hasPrev: currentPage > 1,
+            hasNext: currentPage < Math.max(1, Math.ceil(totalProducts / MOBILE_CATEGORY_PAGE_SIZE)),
+            items: buildPaginationItems(currentPage, Math.max(1, Math.ceil(totalProducts / MOBILE_CATEGORY_PAGE_SIZE)))
+        },
         relatedCategories,
         brands: brandDocs.sort((a, b) => a.localeCompare(b, 'vi'))
     };
@@ -387,7 +499,14 @@ export const renderCartPage = async (req, res, next) => {
 export const renderCategoryPage = async (req, res, next) => {
     try {
         const filters = buildCategoryFilters(req);
-        const { category, products, relatedCategories, brands } = await loadCategoryPageData(filters.categorySlug || req.params.slug, filters);
+        const {
+            category,
+            products,
+            mobileProducts,
+            relatedCategories,
+            brands,
+            pagination
+        } = await loadCategoryPageData(filters.categorySlug || req.params.slug, filters);
 
         res.render('page/client/category', {
             ...baseLocals,
@@ -395,9 +514,11 @@ export const renderCategoryPage = async (req, res, next) => {
             searchKeyword: filters.search,
             category,
             products,
+            mobileProducts,
             relatedCategories,
             brands,
-            filters
+            filters,
+            pagination
         });
     } catch (error) {
         next(error);

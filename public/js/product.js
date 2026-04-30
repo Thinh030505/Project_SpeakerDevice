@@ -32,24 +32,30 @@ const setButtonsDisabled = (disabled) => {
 };
 
 const setMainImage = (src, alt = product?.name || 'Sản phẩm') => {
-    const image = document.querySelector('[data-product-image]');
     const nextSrc = src || PLACEHOLDER_IMAGE;
-    if (!image || image.getAttribute('src') === nextSrc) {
+    const images = Array.from(document.querySelectorAll('[data-product-image]'));
+    if (!images.length) {
         return;
     }
 
-    image.classList.add('is-fading');
-    window.setTimeout(() => {
-        image.src = nextSrc;
-        image.alt = alt;
-        image.decoding = 'async';
-        image.onerror = () => {
-            if (image.src !== PLACEHOLDER_IMAGE) {
-                image.src = PLACEHOLDER_IMAGE;
-            }
-        };
-        image.classList.remove('is-fading');
-    }, 140);
+    images.forEach((image) => {
+        if (image.getAttribute('src') === nextSrc) {
+            return;
+        }
+
+        image.classList.add('is-fading');
+        window.setTimeout(() => {
+            image.src = nextSrc;
+            image.alt = alt;
+            image.decoding = 'async';
+            image.onerror = () => {
+                if (image.src !== PLACEHOLDER_IMAGE) {
+                    image.src = PLACEHOLDER_IMAGE;
+                }
+            };
+            image.classList.remove('is-fading');
+        }, 140);
+    });
 
     document.querySelectorAll('[data-gallery-thumb]').forEach((button) => {
         button.classList.toggle('is-active', button.dataset.gallerySrc === nextSrc);
@@ -132,15 +138,19 @@ const createReviewItem = (review) => {
 };
 
 const renderReviews = (reviews = []) => {
-    const list = document.querySelector('[data-product-review-list]');
-    const empty = document.querySelector('[data-product-review-empty]');
-    if (!list || !empty) {
+    const lists = Array.from(document.querySelectorAll('[data-product-review-list]'));
+    const empties = Array.from(document.querySelectorAll('[data-product-review-empty]'));
+    if (!lists.length || !empties.length) {
         return;
     }
 
-    list.replaceChildren();
-    empty.hidden = reviews.length > 0;
-    reviews.forEach((review) => list.appendChild(createReviewItem(review)));
+    lists.forEach((list) => {
+        list.replaceChildren();
+        reviews.forEach((review) => list.appendChild(createReviewItem(review)));
+    });
+    empties.forEach((empty) => {
+        empty.hidden = reviews.length > 0;
+    });
 
     const ratingText = reviews.length
         ? `${(reviews.reduce((sum, review) => sum + Number(review.rating || 0), 0) / reviews.length).toFixed(1)} / 5`
@@ -171,6 +181,88 @@ const validateReviewPayload = (payload) => {
         return 'Vui lòng nhập nhận xét ít nhất 5 ký tự.';
     }
     return '';
+};
+
+const initAccordions = () => {
+    document.querySelectorAll('[data-detail-accordion]').forEach((item) => {
+        const trigger = item.querySelector('[data-detail-accordion-trigger]');
+        const panel = item.querySelector('[data-detail-accordion-panel]');
+        if (!trigger || !panel) {
+            return;
+        }
+
+        panel.hidden = true;
+        trigger.addEventListener('click', () => {
+            const isOpen = item.classList.toggle('is-open');
+            trigger.setAttribute('aria-expanded', String(isOpen));
+            panel.hidden = !isOpen;
+        });
+    });
+};
+
+const initQuickActions = () => {
+    document.querySelectorAll('[data-product-share]').forEach((button) => {
+        button.addEventListener('click', async () => {
+            const shareData = {
+                title: product?.name || 'SoundHouse',
+                text: product?.shortDescription || product?.name || 'San pham SoundHouse',
+                url: window.location.href
+            };
+
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                    return;
+                }
+
+                if (navigator.clipboard?.writeText) {
+                    await navigator.clipboard.writeText(window.location.href);
+                    showToast('Da sao chep lien ket san pham.');
+                    return;
+                }
+
+                showToast('Khong the chia se luc nay.', 'error');
+            } catch (error) {
+                if (error?.name !== 'AbortError') {
+                    showToast('Khong the chia se luc nay.', 'error');
+                }
+            }
+        });
+    });
+
+    document.querySelectorAll('[data-product-favorite]').forEach((button) => {
+        const storageKey = `soundhouse-favorite:${product?.id || product?.slug || 'product'}`;
+        const applyState = () => {
+            let isSaved = false;
+
+            try {
+                isSaved = window.localStorage.getItem(storageKey) === '1';
+            } catch {
+                isSaved = false;
+            }
+
+            document.querySelectorAll('[data-product-favorite]').forEach((target) => {
+                target.classList.toggle('is-active', isSaved);
+                target.setAttribute('aria-pressed', String(isSaved));
+            });
+        };
+
+        button.addEventListener('click', () => {
+            try {
+                if (window.localStorage.getItem(storageKey) === '1') {
+                    window.localStorage.removeItem(storageKey);
+                } else {
+                    window.localStorage.setItem(storageKey, '1');
+                }
+            } catch {
+                showToast('Khong the luu trang thai yeu thich luc nay.', 'error');
+            }
+
+            applyState();
+        });
+
+        applyState();
+    });
 };
 
 document.addEventListener('click', async (event) => {
@@ -229,43 +321,46 @@ document.addEventListener('click', async (event) => {
     }
 });
 
-document.querySelector('[data-product-review-form]')?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    if (!product?.slug) return;
+document.querySelectorAll('[data-product-review-form]').forEach((form) => {
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (!product?.slug) return;
 
-    const form = event.currentTarget;
-    const button = form.querySelector('button[type="submit"]');
-    if (button?.disabled) return;
+        const button = form.querySelector('button[type="submit"]');
+        if (button?.disabled) return;
 
-    const payload = {
-        authorName: String(form.elements.authorName?.value || '').trim(),
-        rating: Number(form.elements.rating?.value || 0),
-        comment: String(form.elements.comment?.value || '').trim()
-    };
+        const payload = {
+            authorName: String(form.elements.authorName?.value || '').trim(),
+            rating: Number(form.elements.rating?.value || 0),
+            comment: String(form.elements.comment?.value || '').trim()
+        };
 
-    const validationMessage = validateReviewPayload(payload);
-    if (validationMessage) {
-        showToast(validationMessage, 'error');
-        return;
-    }
+        const validationMessage = validateReviewPayload(payload);
+        if (validationMessage) {
+            showToast(validationMessage, 'error');
+            return;
+        }
 
-    setButtonLoading(button, true, 'Đang gửi...');
-    try {
-        await API.reviews.create(product.slug, payload);
-        form.reset();
-        await loadReviews();
-        showToast('Đã gửi đánh giá thành công.');
-    } catch (error) {
-        showToast(getApiErrors(error).message, 'error');
-    } finally {
-        setButtonLoading(button, false);
-    }
+        setButtonLoading(button, true, 'Dang gui...');
+        try {
+            await API.reviews.create(product.slug, payload);
+            document.querySelectorAll('[data-product-review-form]').forEach((targetForm) => targetForm.reset());
+            await loadReviews();
+            showToast('Da gui danh gia thanh cong.');
+        } catch (error) {
+            showToast(getApiErrors(error).message, 'error');
+        } finally {
+            setButtonLoading(button, false);
+        }
+    });
 });
 
 if (product) {
     initGallery();
+    initAccordions();
+    initQuickActions();
     renderVariant();
     loadReviews().catch(() => {
-        showToast('Không thể tải đánh giá. Vui lòng thử lại.', 'error');
+        showToast('Khong the tai danh gia. Vui long thu lai.', 'error');
     });
 }

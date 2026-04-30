@@ -23,7 +23,7 @@ block head
     }
     .section-heading h2 {
       margin: 0 0 10px;
-      font-family: "Space Grotesk", "Be Vietnam Pro", sans-serif;
+      font-family: "Space Grotesk", "Manrope", sans-serif;
       font-size: 42px;
       line-height: 1.08;
       letter-spacing: 0;
@@ -115,7 +115,7 @@ block head
     .hero-copy h1 {
       margin: 24px 0 18px;
       max-width: 620px;
-      font-family: "Space Grotesk", "Be Vietnam Pro", sans-serif;
+      font-family: "Space Grotesk", "Manrope", sans-serif;
       font-size: 68px;
       line-height: 1.02;
       letter-spacing: 0;
@@ -338,7 +338,7 @@ block head
       border-radius: 16px;
       background: var(--primary);
       color: #fff;
-      font-family: "Space Grotesk", sans-serif;
+      font-family: "Space Grotesk", "Manrope", sans-serif;
       font-size: 18px;
       font-weight: 700;
     }
@@ -365,7 +365,7 @@ block head
       display: grid;
       grid-template-rows: auto 1fr;
       padding: 18px;
-      border-radius: 18px;
+      border-radius: 20px;
       border: 1px solid var(--line);
       background: #fff;
       box-shadow: 0 14px 30px rgba(41, 42, 63, 0.08);
@@ -379,25 +379,37 @@ block head
     }
     .product-card-home__media {
       position: relative;
-      height: 250px;
+      height: 248px;
       display: grid;
       place-items: center;
+      padding: 22px;
       margin-bottom: 18px;
-      border-radius: 15px;
+      border-radius: 18px;
       background:
-        radial-gradient(circle at center, rgba(61, 62, 91, 0.12), rgba(61, 62, 91, 0.04) 56%, rgba(61, 62, 91, 0.02)),
-        #f3f4f9;
+        radial-gradient(circle at 50% 38%, rgba(61, 62, 91, 0.1), rgba(61, 62, 91, 0.03) 58%, rgba(61, 62, 91, 0.01)),
+        linear-gradient(180deg, #f7f8fc 0%, #eef1f7 100%);
       overflow: hidden;
     }
+    .product-card-home__media::after {
+      content: "";
+      position: absolute;
+      inset: auto 18% 14px;
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(37, 39, 58, 0.12);
+      filter: blur(12px);
+      pointer-events: none;
+    }
     .product-card-home__media img {
-      width: 82%;
-      height: 210px;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
+      object-position: center center;
       transition: transform 0.3s ease;
-      filter: drop-shadow(0 16px 18px rgba(41, 42, 63, 0.14));
+      filter: drop-shadow(0 18px 22px rgba(41, 42, 63, 0.12));
     }
     .product-card-home:hover .product-card-home__media img {
-      transform: scale(1.03);
+      transform: scale(1.035);
     }
     .product-card-home__tag {
       position: absolute;
@@ -440,17 +452,18 @@ block head
     }
     .product-card-home__brand {
       color: var(--muted);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.12em;
     }
     .product-card-home__body h3 {
       min-height: 48px;
       margin: 0;
       color: var(--primary-dark);
-      font-size: 18px;
-      line-height: 1.35;
+      font-size: 17px;
+      line-height: 1.32;
+      font-weight: 700;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
@@ -463,21 +476,27 @@ block head
     .product-card-home__rating {
       color: var(--text-soft);
       font-size: 13px;
+      font-weight: 600;
     }
     .product-card-home__price {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
       flex-wrap: wrap;
     }
     .product-card-home__price strong {
       color: var(--primary);
-      font-size: 22px;
-      font-weight: 800;
+      font-family: "Space Grotesk", "Manrope", sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums lining-nums;
     }
     .product-card-home__compare {
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums lining-nums;
       text-decoration: line-through;
     }
     .product-card-home__button {
@@ -491,7 +510,8 @@ block head
       border-radius: 999px;
       background: var(--primary);
       color: #fff;
-      font-weight: 800;
+      font-weight: 700;
+      letter-spacing: 0.01em;
       text-decoration: none;
       transition: transform 0.3s ease, background 0.3s ease;
     }
@@ -666,6 +686,12 @@ block head
       border-color: rgba(61, 62, 91, 0.42);
       box-shadow: 0 0 0 4px rgba(61, 62, 91, 0.08);
     }
+    .mobile-home {
+      display: none;
+    }
+    .desktop-home {
+      display: block;
+    }
     @keyframes fadeSlideUp {
       from { opacity: 0; transform: translateY(18px); }
       to { opacity: 1; transform: translateY(0); }
@@ -784,19 +810,451 @@ block head
         justify-content: stretch;
       }
       .newsletter-band__form input,
-      .newsletter-band__form button {
-        width: 100%;
+        .newsletter-band__form button {
+          width: 100%;
+        }
       }
-    }
+      @media (max-width: 767px) {
+        .desktop-home {
+          display: none;
+        }
+        .mobile-home {
+          display: block;
+          padding: 22px 0 0;
+          color: #fff;
+        }
+        .mobile-home__shell {
+          width: min(100% - 32px, 375px);
+          margin: 0 auto;
+        }
+        .mobile-home__hero {
+          position: relative;
+          min-height: 310px;
+          margin-top: 22px;
+          padding: 22px;
+          border-radius: 16px;
+          overflow: hidden;
+          background:
+            linear-gradient(180deg, rgba(18, 20, 29, 0.28), rgba(18, 20, 29, 0.84)),
+            center / cover no-repeat;
+          box-shadow: 0 22px 40px rgba(4, 7, 16, 0.35);
+        }
+        .mobile-home__hero::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(15, 17, 25, 0.2), rgba(15, 17, 25, 0.86));
+        }
+        .mobile-home__hero-content {
+          position: relative;
+          z-index: 1;
+          max-width: 230px;
+        }
+        .mobile-home__badge {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 28px;
+          padding: 0 14px;
+          border-radius: 999px;
+          background: #636AE8;
+          color: #11131d;
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 0.06em;
+        }
+        .mobile-home__hero h1 {
+          margin: 16px 0 48px;
+          color: #fff;
+          font-family: "Space Grotesk", "Manrope", sans-serif;
+          font-size: 26px;
+          line-height: 1.04;
+          font-style: italic;
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+        .mobile-home__hero p {
+          margin: 0 0 18px;
+          color: rgba(255, 255, 255, 0.68);
+          font-size: 14px;
+          line-height: 1.55;
+        }
+        .mobile-home__cta {
+          width: 128px;
+          min-height: 38px;
+          border-radius: 6px;
+          background: #636AE8;
+          color: #11131d;
+          font-size: 14px;
+          font-weight: 800;
+          box-shadow: none;
+        }
+        .mobile-home__features {
+          margin-top: 16px;
+          padding: 14px 10px;
+          border-radius: 18px;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          background: linear-gradient(180deg, rgba(28, 32, 48, 0.96), rgba(24, 27, 41, 0.96));
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 6px;
+        }
+        .mobile-home__feature {
+          display: grid;
+          justify-items: center;
+          gap: 9px;
+          text-align: center;
+        }
+        .mobile-home__feature-icon {
+          width: 42px;
+          height: 42px;
+          border-radius: 14px;
+          display: grid;
+          place-items: center;
+          border: 1px solid rgba(99, 106, 232, 0.16);
+          background: radial-gradient(circle at top, rgba(99, 106, 232, 0.22), rgba(99, 106, 232, 0.06));
+          color: #636AE8;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.04em;
+        }
+        .mobile-home__feature span {
+          color: rgba(255, 255, 255, 0.65);
+          font-size: 10px;
+          line-height: 1.35;
+        }
+        .mobile-home__feature span strong {
+          display: block;
+          margin-bottom: 2px;
+          color: #fff;
+          font-size: 11px;
+        }
+        .mobile-home__section {
+          padding: 30px 18px 28px;
+        }
+        .mobile-home__section--dark {
+          background: rgba(18, 22, 32, 0.6);
+        }
+        .mobile-home__heading {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          margin-bottom: 20px;
+        }
+        .mobile-home__heading-title {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .mobile-home__heading-bar {
+          width: 3px;
+          height: 24px;
+          border-radius: 999px;
+          background: #636AE8;
+        }
+        .mobile-home__heading-bar--pink {
+          background: #F45B9B;
+        }
+        .mobile-home__heading h2 {
+          margin: 0;
+          color: #fff;
+          font-size: 20px;
+          font-weight: 800;
+        }
+        .mobile-home__heading a {
+          color: #636AE8;
+          font-size: 12px;
+          font-weight: 700;
+          text-decoration: none;
+          letter-spacing: 0.02em;
+        }
+        .mobile-home__category-grid,
+        .mobile-home__product-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 16px;
+        }
+        .mobile-home__category-card {
+          position: relative;
+          min-height: 116px;
+          padding: 14px;
+          border-radius: 12px;
+          overflow: hidden;
+          display: flex;
+          align-items: flex-end;
+          text-decoration: none;
+          background: center / cover no-repeat;
+        }
+        .mobile-home__category-card::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(14, 17, 26, 0.12), rgba(14, 17, 26, 0.82));
+        }
+        .mobile-home__category-card strong {
+          position: relative;
+          z-index: 1;
+          color: #fff;
+          font-size: 14px;
+          line-height: 1.3;
+        }
+        .mobile-home__product-card {
+          position: relative;
+          min-height: 306px;
+          padding: 14px;
+          border-radius: 10px;
+          overflow: hidden;
+          background: #202431;
+          box-shadow: 0 14px 26px rgba(6, 10, 20, 0.26);
+          display: grid;
+          grid-template-rows: 148px auto auto auto 1fr auto;
+          align-items: start;
+        }
+        .mobile-home__product-badge {
+          position: absolute;
+          top: 12px;
+          left: 12px;
+          z-index: 2;
+          height: 20px;
+          padding: 0 10px;
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          background: #F45B9B;
+          color: #15111a;
+          font-size: 10px;
+          font-weight: 800;
+        }
+        .mobile-home__product-media {
+          display: grid;
+          place-items: center;
+          height: 148px;
+          margin-bottom: 12px;
+          border-radius: 10px;
+          background: #eceff6;
+          overflow: hidden;
+        }
+        .mobile-home__product-media img {
+          width: calc(100% - 20px);
+          height: calc(100% - 20px);
+          object-fit: contain;
+          object-position: center;
+          margin: auto;
+        }
+        .mobile-home__product-rating {
+          margin-bottom: 8px;
+          color: rgba(255, 255, 255, 0.72);
+          font-size: 12px;
+          text-align: center;
+        }
+        .mobile-home__product-card h3 {
+          margin: 0 0 10px;
+          min-height: 38px;
+          color: #fff;
+          font-size: 14px;
+          line-height: 1.35;
+          text-align: center;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+        }
+        .mobile-home__product-card h3 a {
+          color: inherit;
+          text-decoration: none;
+        }
+        .mobile-home__product-price {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          align-items: baseline;
+          justify-content: center;
+          min-height: 28px;
+        }
+        .mobile-home__product-price strong {
+          color: #636AE8;
+          font-size: 18px;
+          font-weight: 800;
+        }
+        .mobile-home__product-price span {
+          color: rgba(255, 255, 255, 0.45);
+          font-size: 11px;
+          text-decoration: line-through;
+        }
+        .mobile-home__product-action {
+          width: 100%;
+          min-height: 40px;
+          align-self: end;
+          justify-self: stretch;
+          border-radius: 999px;
+          background: rgba(99, 106, 232, 0.16);
+          border: 1px solid rgba(99, 106, 232, 0.18);
+          color: #fff;
+          font-size: 12px;
+          font-weight: 800;
+          box-shadow: none;
+        }
+        .product-card-home__media,
+        .product-card-home__media img,
+        .product-card-home__button,
+        .mobile-home__category-card,
+        .mobile-home__hero,
+        .mobile-home__cta,
+        .mobile-home__member .btn {
+          background-position: center;
+          justify-content: center;
+          align-items: center;
+        }
+        .mobile-home__member-wrap {
+          padding: 0 24px 32px;
+        }
+        .mobile-home__member {
+          padding: 26px 24px;
+          border-radius: 14px;
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          text-align: center;
+          background: linear-gradient(135deg, rgba(99, 106, 232, 0.95), rgba(120, 93, 214, 0.95), rgba(180, 92, 170, 0.92));
+          box-shadow: 0 24px 40px rgba(34, 25, 73, 0.36);
+        }
+        .mobile-home__member-icon {
+          width: 54px;
+          height: 54px;
+          margin: 0 auto 18px;
+          border-radius: 999px;
+          display: grid;
+          place-items: center;
+          background: rgba(255, 255, 255, 0.14);
+          color: #fff;
+          font-size: 22px;
+        }
+        .mobile-home__member h2 {
+          margin: 0;
+          color: #fff;
+          font-size: 20px;
+          line-height: 1.45;
+          font-weight: 800;
+          text-transform: uppercase;
+        }
+        .mobile-home__member p {
+          margin: 14px 0 0;
+          color: rgba(255, 255, 255, 0.72);
+          font-size: 14px;
+          line-height: 1.6;
+        }
+        .mobile-home__member .btn {
+          width: 100%;
+          min-height: 46px;
+          margin-top: 24px;
+          border-radius: 6px;
+          background: #fff;
+          color: #363a57;
+          box-shadow: none;
+        }
+      }
 
 block content
   - const bannerSlides = typeof heroBanners !== 'undefined' && heroBanners.length ? heroBanners : []
   - const heroSlides = bannerSlides.length ? bannerSlides : (featuredProducts && featuredProducts.length ? featuredProducts.slice(0, 4) : [heroProduct])
   - const useBannerSlides = bannerSlides.length > 0
   - const trendProducts = featuredProducts && featuredProducts.length ? featuredProducts.slice(0, 3) : [heroProduct, heroProduct, heroProduct]
+  - const mobileRecommendations = featuredProducts && featuredProducts.length ? featuredProducts.slice(0, 4) : [heroProduct, heroProduct, heroProduct, heroProduct]
+  - const mobilePopular = featuredProducts && featuredProducts.length > 4 ? featuredProducts.slice(4, 8) : (featuredProducts && featuredProducts.length ? featuredProducts.slice(0, 4) : [heroProduct, heroProduct, heroProduct, heroProduct])
+  - const mobileCategoryCards = [{ title: 'Loa Bluetooth', href: '/category?categorySlug=loa-bluetooth', image: (featuredProducts && featuredProducts[0] ? featuredProducts[0].image : heroProduct.image) }, { title: 'Tai Nghe Hi-Fi', href: '/category?search=Tai%20Nghe', image: (featuredProducts && featuredProducts[1] ? featuredProducts[1].image : heroProduct.image) }, { title: 'Hệ Thống Rạp Hát', href: '/category?search=Soundbar', image: (featuredProducts && featuredProducts[2] ? featuredProducts[2].image : heroProduct.image) }, { title: 'Phụ Kiện Audio', href: '/category?search=Phụ%20Kiện', image: (featuredProducts && featuredProducts[3] ? featuredProducts[3].image : heroProduct.image) }]
   - const brandCards = [{ name: 'Marshall', mark: 'M', copy: 'Chất âm rock mạnh mẽ, thiết kế vintage cao cấp.' }, { name: 'JBL', mark: 'JBL', copy: 'Âm thanh sôi động, pin bền, phù hợp di chuyển.' }, { name: 'Harman Kardon', mark: 'HK', copy: 'Thiết kế sang trọng cho phòng khách hiện đại.' }, { name: 'Bose', mark: 'B', copy: 'Âm thanh cân bằng, chi tiết và dễ nghe lâu.' }, { name: 'Sony', mark: 'S', copy: 'Công nghệ hiện đại, bass chắc và kết nối ổn định.' }]
   - const trendCards = [{ title: 'Loa di động cho dã ngoại', text: 'Gọn nhẹ, pin lâu, kết nối nhanh cho những chuyến đi cuối tuần.', label: 'Di động', product: trendProducts[0] }, { title: 'Loa phòng khách cao cấp', text: 'Thiết kế nổi bật, âm trường rộng và đủ tinh tế cho không gian sống.', label: 'Phòng khách', product: trendProducts[1] || trendProducts[0] }, { title: 'Loa tiệc công suất lớn', text: 'Bass mạnh, âm lượng lớn, tạo không khí cho các buổi gặp gỡ.', label: 'Tiệc', product: trendProducts[2] || trendProducts[0] }]
-  .home-page
+  .mobile-home
+    .mobile-home__shell
+      .mobile-home__hero(style=`background-image: linear-gradient(180deg, rgba(18, 20, 29, 0.28), rgba(18, 20, 29, 0.84)), url('${heroProduct.image}')`)
+        .mobile-home__hero-content
+          span.mobile-home__badge NEW ARRIVAL
+          h1 ÂM THANH ĐỈNH CAO
+          p Hệ thống loa vòm Bluetooth thế hệ mới 2024.
+          a.btn.mobile-home__cta(href=`/products/${heroProduct.slug}`) Mua Ngay →
+      .mobile-home__features
+        .mobile-home__feature
+          .mobile-home__feature-icon SHIP
+          span
+            strong Giao hàng
+            br
+            | Hỏa tốc
+        .mobile-home__feature
+          .mobile-home__feature-icon 24M
+          span
+            strong Bảo hành
+            br
+            | tháng
+        .mobile-home__feature
+          .mobile-home__feature-icon HELP
+          span
+            strong Hỗ trợ
+            br
+            | 24/7
+        .mobile-home__feature
+          .mobile-home__feature-icon PAY
+          span
+            strong Trả góp
+            | linh hoạt
+    section.mobile-home__section
+      .mobile-home__heading
+        .mobile-home__heading-title
+          .mobile-home__heading-bar
+          h2 Danh Mục Nổi Bật
+        a(href="/category") Tất cả >
+      .mobile-home__category-grid
+        each item in mobileCategoryCards
+          a.mobile-home__category-card(href=item.href style=`background-image: url('${item.image}')`)
+            strong= item.title
+    section.mobile-home__section.mobile-home__section--dark
+      .mobile-home__heading
+        .mobile-home__heading-title
+          .mobile-home__heading-bar.mobile-home__heading-bar--pink
+          h2 Gợi Ý Cho Bạn
+        a(href="/category") See All
+      .mobile-home__product-grid
+        each product, index in mobileRecommendations
+          article.mobile-home__product-card
+            span.mobile-home__product-badge= index === 0 ? 'PREMIUM' : 'BÁN CHẠY'
+            a.mobile-home__product-media(href=`/products/${product.slug}`)
+              img(src=product.image alt=product.name loading="lazy")
+            .mobile-home__product-rating= product.ratingText || '5.0 / 5'
+            h3
+              a(href=`/products/${product.slug}`)= product.name
+            .mobile-home__product-price
+              strong= product.priceText
+              if product.compareAtPriceText
+                span= product.compareAtPriceText
+            a.btn.mobile-home__product-action(href=`/products/${product.slug}`) Xem ngay
+    .mobile-home__member-wrap
+      .mobile-home__member
+        .mobile-home__member-icon ⚡
+        h2 THÀNH VIÊN SOUNDHOUSE
+          br
+          | ELITE
+        p Đặc quyền ưu đãi, quà sinh nhật và quyền truy cập sớm vào các dòng loa premium mới nhất.
+        a.btn(href="/register") Tham Gia Ngay
+    section.mobile-home__section
+      .mobile-home__heading
+        .mobile-home__heading-title
+          .mobile-home__heading-bar
+          h2 Sản Phẩm Phổ Biến
+        a(href="/category") See All
+      .mobile-home__product-grid
+        each product, index in mobilePopular
+          article.mobile-home__product-card
+            if index === 1
+              span.mobile-home__product-badge PREMIUM
+            a.mobile-home__product-media(href=`/products/${product.slug}`)
+              img(src=product.image alt=product.name loading="lazy")
+            .mobile-home__product-rating= product.ratingText || '5.0 / 5'
+            h3
+              a(href=`/products/${product.slug}`)= product.name
+            .mobile-home__product-price
+              strong= product.priceText
+              if product.compareAtPriceText
+                span= product.compareAtPriceText
+            a.btn.mobile-home__product-action(href=`/products/${product.slug}`) Xem ngay
+  .desktop-home.home-page
     section.home-hero
       .home-shell.hero-grid
         .hero-copy

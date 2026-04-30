@@ -119,6 +119,68 @@ const initViewToggle = () => {
     });
 };
 
+const initMobileFilters = () => {
+    const panel = document.querySelector('[data-mobile-filter-panel]');
+    const openButtons = Array.from(document.querySelectorAll('[data-mobile-filter-open]'));
+    const closeButton = document.querySelector('[data-mobile-filter-close]');
+    const resetButton = document.querySelector('[data-mobile-filter-reset]');
+    const form = panel?.querySelector('form');
+    const minPriceInput = form?.querySelector('input[name="minPrice"]');
+    const maxPriceInput = form?.querySelector('input[name="maxPrice"]');
+
+    if (!panel || !openButtons.length || !form) {
+        return;
+    }
+
+    const setOpen = (isOpen) => {
+        panel.classList.toggle('is-open', isOpen);
+        document.body.classList.toggle('is-mobile-filter-open', isOpen);
+    };
+
+    openButtons.forEach((button) => {
+        button.addEventListener('click', () => setOpen(true));
+    });
+    closeButton?.addEventListener('click', () => setOpen(false));
+    panel.addEventListener('click', (event) => {
+        if (event.target === panel) {
+            setOpen(false);
+        }
+    });
+
+    form.querySelectorAll('input[name="priceRange"]').forEach((field) => {
+        field.addEventListener('change', () => {
+            if (!field.checked) {
+                return;
+            }
+
+            if (minPriceInput) {
+                minPriceInput.value = field.dataset.priceMin || '0';
+            }
+            if (maxPriceInput) {
+                maxPriceInput.value = field.dataset.priceMax || '0';
+            }
+        });
+    });
+
+    resetButton?.addEventListener('click', () => {
+        window.location.href = '/category';
+    });
+
+    form.addEventListener('submit', (event) => {
+        const minPrice = Number(minPriceInput?.value || 0);
+        const maxPrice = Number(maxPriceInput?.value || 0);
+
+        if (minPrice > 0 && maxPrice > 0 && minPrice > maxPrice) {
+            event.preventDefault();
+            showToast('Gia toi thieu khong duoc lon hon gia toi da.', 'error');
+            return;
+        }
+
+        Loading.show('Dang tim san pham...');
+        setOpen(false);
+    });
+};
+
 document.addEventListener('click', async (event) => {
     const button = event.target.closest('[data-category-add-cart]');
     if (!button) {
@@ -149,3 +211,4 @@ window.addEventListener('pageshow', () => {
 initCategoryFilters();
 initFilterGroups();
 initViewToggle();
+initMobileFilters();

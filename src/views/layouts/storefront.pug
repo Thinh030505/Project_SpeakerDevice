@@ -6,7 +6,7 @@ html(lang="vi")
     title #{typeof pageTitle !== 'undefined' ? pageTitle + ' - SoundHouse' : 'SoundHouse'}
     link(rel="preconnect" href="https://fonts.googleapis.com")
     link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
-    link(href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet")
     style.
       :root {
         --primary: #3D3E5B;
@@ -37,7 +37,7 @@ html(lang="vi")
       body {
         margin: 0;
         min-height: 100vh;
-        font-family: "Be Vietnam Pro", system-ui, sans-serif;
+        font-family: "Manrope", system-ui, sans-serif;
         color: var(--text);
         background:
           linear-gradient(180deg, rgba(61, 62, 91, 0.08), rgba(246, 247, 251, 0) 320px),
@@ -106,6 +106,9 @@ html(lang="vi")
         gap: 12px;
         min-width: 178px;
         text-decoration: none;
+      }
+      .site-header__menu {
+        display: none;
       }
       .site-header__logo {
         width: 42px;
@@ -217,6 +220,7 @@ html(lang="vi")
         align-items: center;
         justify-content: flex-end;
         gap: 10px;
+        position: relative;
       }
       .site-header__iconlink {
         position: relative;
@@ -257,6 +261,38 @@ html(lang="vi")
       }
       .site-header__auth {
         gap: 8px;
+      }
+      .site-header__user-menu {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        width: 210px;
+        padding: 10px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(32, 36, 49, 0.98);
+        box-shadow: 0 24px 40px rgba(7, 10, 18, 0.34);
+        display: none;
+        gap: 6px;
+      }
+      .site-header__user-menu.is-open {
+        display: grid;
+      }
+      .site-header__user-link {
+        display: flex;
+        align-items: center;
+        min-height: 40px;
+        padding: 0 12px;
+        border-radius: 12px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        background: transparent;
+      }
+      .site-header__user-link:hover,
+      .site-header__user-link:focus-visible {
+        background: rgba(255, 255, 255, 0.08);
       }
       .site-header__avatar {
         width: 24px;
@@ -608,6 +644,9 @@ html(lang="vi")
         color: rgba(255, 255, 255, 0.5);
         font-size: 13px;
       }
+      .mobile-bottom-nav {
+        display: none;
+      }
       @keyframes spin {
         to { transform: rotate(360deg); }
       }
@@ -643,34 +682,259 @@ html(lang="vi")
           margin: 0 auto;
         }
       }
-      @media (max-width: 760px) {
+      @media (max-width: 767px) {
         :root {
-          --shell: min(100% - 28px, 1280px);
+          --shell: min(100% - 32px, 1280px);
+          --primary: #636AE8;
+          --primary-dark: #2D2E45;
+          --primary-deep: #202431;
+          --bg: #151924;
+          --bg-soft: #1b2030;
+          --surface: #202431;
+          --surface-tint: rgba(99, 106, 232, 0.08);
+          --line: rgba(255, 255, 255, 0.08);
+          --line-soft: rgba(255, 255, 255, 0.08);
+          --text: #FFFFFF;
+          --text-soft: rgba(255, 255, 255, 0.65);
+          --muted: rgba(255, 255, 255, 0.62);
+          --accent: #636AE8;
+          --accent-2: #7E84FF;
+        }
+        body {
+          background:
+            radial-gradient(circle at top, rgba(99, 106, 232, 0.16), transparent 34%),
+            linear-gradient(180deg, #161A24, #121620 58%, #171B25 100%);
+          color: #FFFFFF;
+        }
+        .topbar {
+          background: #232437;
         }
         .topbar__inner {
-          justify-content: center;
-          padding: 8px 0;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          min-height: 48px;
+          padding: 7px 0 9px;
+          font-size: 12px;
         }
-        .topbar__contact,
-        .topbar__links,
-        .site-header__nav {
-          justify-content: center;
+        .topbar__contact {
+          display: flex;
+          flex-direction: column;
+          gap: 1px;
+          max-width: 182px;
+          line-height: 1.25;
+        }
+        .topbar__contact a:first-child::before {
+          content: "☎ ";
+        }
+        .topbar__contact a:last-child::before {
+          content: "✉ ";
         }
         .topbar__links {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          white-space: nowrap;
+        }
+        .topbar__links a {
+          font-size: 0;
+        }
+        .topbar__links a:first-child::after {
+          content: "FAQ";
+          font-size: 12px;
+        }
+        .topbar__links a:last-child::after {
+          content: "Contact";
+          font-size: 12px;
+        }
+        .site-header {
+          background: rgba(45, 46, 69, 0.96);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          backdrop-filter: blur(18px);
+        }
+        .site-header__bar {
+          grid-template-columns: 40px minmax(0, 1fr) auto;
+          gap: 8px;
+          min-height: 64px;
+          padding: 0;
+          align-items: center;
+        }
+        .site-header__menu {
+          width: 40px;
+          height: 40px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.06);
+          color: #FFFFFF;
+          font-size: 18px;
+        }
+        .site-header__brand {
+          min-width: 0;
+          gap: 8px;
+          justify-self: start;
+        }
+        .site-header__logo {
+          width: 32px;
+          height: 32px;
+          border-radius: 10px;
+          background: #636AE8;
+          color: #11131d;
+          box-shadow: none;
+          font-size: 12px;
+        }
+        .site-header__brand strong {
+          color: #FFFFFF;
+          font-size: 16px;
+          letter-spacing: -0.02em;
+        }
+        .site-header__brand span {
           display: none;
         }
-        .site-header__nav {
-          gap: 14px;
-        }
-        .site-header__nav a {
-          font-size: 13px;
+        .site-header__nav,
+        .site-header__search {
+          display: none;
         }
         .site-header__actions {
-          width: 100%;
+          width: auto;
+          gap: 6px;
+          justify-content: flex-end;
+        }
+        .site-header__iconlink {
+          min-width: 38px;
+          width: 38px;
+          height: 38px;
+          padding: 0;
+          border-radius: 12px;
+          border-color: rgba(255, 255, 255, 0.08);
+          background: rgba(255, 255, 255, 0.08);
+          box-shadow: none;
+        }
+        .site-header__iconlink > span:first-child {
+          display: none;
+        }
+        .site-header__iconlink::before {
+          display: block;
+          font-size: 16px;
+          line-height: 1;
+        }
+        .site-header__actions > .site-header__iconlink:not(.site-header__auth)::before {
+          content: "🛒";
+        }
+        .site-header__auth {
+          min-width: 38px;
+        }
+        .site-header__auth::before {
+          content: "◉";
+        }
+        .site-header__avatar {
+          display: none;
+        }
+        .site-header__auth span:last-child {
+          display: none;
+        }
+        .site-header__count {
+          min-width: 18px;
+          height: 18px;
+          top: -4px;
+          right: -2px;
+          background: #636AE8;
+          color: #11131d;
+        }
+        .site-header__user-menu {
+          top: calc(100% + 8px);
+          right: 0;
+          width: 188px;
+          padding: 8px;
+          border-radius: 14px;
+          background: rgba(32, 36, 49, 0.98);
+        }
+        .site-header__user-link {
+          min-height: 38px;
+          font-size: 12px;
+        }
+        main {
+          padding-bottom: 98px;
+        }
+        .site-footer {
+          background: #2D2E45;
         }
         .site-footer__grid {
           grid-template-columns: 1fr;
-          padding-top: 42px;
+          gap: 26px;
+          padding-top: 28px;
+        }
+        .site-footer h3 {
+          margin-bottom: 12px;
+          text-decoration: underline;
+          text-underline-offset: 4px;
+        }
+        .site-footer p,
+        .site-footer a {
+          margin-bottom: 8px;
+          font-size: 13px;
+          text-decoration: underline;
+          text-underline-offset: 4px;
+        }
+        .site-footer__socials a {
+          width: 36px;
+          height: 36px;
+          border-radius: 10px;
+        }
+        .site-footer__copyright {
+          margin-top: 24px;
+          padding: 14px 0 80px;
+          background: rgba(0, 0, 0, 0.12);
+          font-size: 11px;
+          color: rgba(255, 255, 255, 0.65);
+        }
+        .mobile-bottom-nav {
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 80;
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          height: 64px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          background: #2D2E45;
+        }
+        .mobile-bottom-nav__item {
+          position: relative;
+          display: grid;
+          align-content: center;
+          justify-items: center;
+          gap: 4px;
+          color: rgba(255, 255, 255, 0.62);
+          text-decoration: none;
+          font-size: 11px;
+          font-weight: 600;
+        }
+        .mobile-bottom-nav__item strong {
+          font-size: 20px;
+          line-height: 1;
+        }
+        .mobile-bottom-nav__item.is-active {
+          color: #636AE8;
+        }
+        .mobile-bottom-nav__badge {
+          position: absolute;
+          top: 7px;
+          right: calc(50% - 20px);
+          min-width: 16px;
+          height: 16px;
+          padding: 0 4px;
+          border-radius: 999px;
+          display: grid;
+          place-items: center;
+          background: #F45B9B;
+          color: #14111a;
+          font-size: 10px;
+          font-weight: 800;
         }
       }
     block head
@@ -685,6 +949,7 @@ html(lang="vi")
           a(href="/contact-faq") Giao hàng toàn quốc
     header.site-header(data-site-header)
       .shell.site-header__bar
+        button.site-header__menu(type="button" aria-label="Mở menu") ☰
         a.site-header__brand(href="/")
           .site-header__logo SH
           div
@@ -703,9 +968,16 @@ html(lang="vi")
           a.site-header__iconlink(href="/cart" aria-label="Giỏ hàng")
             span Giỏ
             span.site-header__count(data-cart-count) 0
-          a.site-header__iconlink.site-header__auth(href="/login" data-auth-link aria-label="Tài khoản")
+          button.site-header__iconlink.site-header__auth(type="button" aria-label="Tài khoản" data-user-trigger aria-expanded="false")
             span.site-header__avatar TK
             span Đăng nhập
+          .site-header__user-menu(data-user-menu)
+            a.site-header__user-link(href="/login" data-user-login) Đăng nhập
+            a.site-header__user-link(href="/register" data-user-register) Tạo tài khoản
+            a.site-header__user-link(href="/account" data-user-account hidden) Tài khoản của tôi
+            a.site-header__user-link(href="/account/orders" data-user-orders hidden) Đơn hàng của tôi
+            a.site-header__user-link(href="/account/addresses" data-user-addresses hidden) Sổ địa chỉ
+            a.site-header__user-link(href="/logout" data-user-logout hidden) Đăng xuất
 
     main
       block content
@@ -745,6 +1017,21 @@ html(lang="vi")
             p
               a(href="tel:+84123456789") +84 123 456 789
         .site-footer__copyright Bản quyền 2026 SoundHouse. Thiết kế cho người yêu âm thanh cao cấp.
+
+    nav.mobile-bottom-nav(aria-label="Điều hướng di động")
+      a.mobile-bottom-nav__item.is-active(href="/")
+        strong ⌂
+        span Trang chủ
+      a.mobile-bottom-nav__item(href="/category")
+        strong ⌕
+        span Tìm kiếm
+      a.mobile-bottom-nav__item(href="/cart")
+        span.mobile-bottom-nav__badge 9
+        strong 🛒
+        span Giỏ hàng
+      a.mobile-bottom-nav__item(href="/login")
+        strong ◉
+        span Tài khoản
 
     #toast-stack.toast-stack
 

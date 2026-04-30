@@ -693,6 +693,443 @@ block head
       color: rgba(255, 255, 255, 0.4);
       font-size: 12px;
     }
+    .category-mobile {
+      display: none;
+    }
+    @media (max-width: 767px) {
+      :root {
+        --category-bg-page: #050505;
+        --category-bg-header: #3d3e5b;
+        --category-bg-card: #1d222b;
+        --category-bg-image: #eef2f7;
+        --category-accent: #636ae8;
+        --category-danger: #ef4444;
+        --category-pink: #f472b6;
+        --category-text: #ffffff;
+        --category-text-secondary: rgba(255, 255, 255, 0.65);
+        --category-text-muted: rgba(255, 255, 255, 0.55);
+        --category-border: rgba(255, 255, 255, 0.12);
+      }
+      body {
+        min-width: 0;
+        background: var(--category-bg-page);
+      }
+      main {
+        padding: 0 0 92px;
+      }
+      .shell {
+        width: 100%;
+      }
+      .category-page {
+        padding: 0;
+        background: var(--category-bg-page);
+      }
+      .category-desktop {
+        display: none;
+      }
+      .category-mobile {
+        display: block;
+      }
+      .category-mobile__breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 40px;
+        padding: 0 14px;
+        background: #000;
+        color: var(--category-text-secondary);
+        font-size: 12px;
+      }
+      .category-mobile__breadcrumb a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .category-mobile__breadcrumb span[aria-current="page"] {
+        color: var(--category-text);
+      }
+      .category-mobile__hero {
+        padding: 24px 14px 20px;
+        background: var(--category-bg-header);
+      }
+      .category-mobile__hero h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.25;
+        color: var(--category-text);
+      }
+      .category-mobile__hero p {
+        margin: 12px 0 0;
+        color: var(--category-text-secondary);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+      .category-mobile__toolbar {
+        display: grid;
+        grid-template-columns: auto auto 1fr;
+        align-items: center;
+        gap: 10px;
+        margin-top: 28px;
+        padding-bottom: 10px;
+      }
+      .category-mobile__tool {
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 12px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--category-text);
+        font-size: 12px;
+      }
+      .category-mobile__tool-badge {
+        width: 18px;
+        height: 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: #222538;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .category-mobile__count {
+        justify-self: end;
+        color: var(--category-text-muted);
+        font-size: 11px;
+        text-align: right;
+      }
+      .category-mobile__search {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .category-mobile__search input {
+        height: 40px;
+        padding: 0 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
+        font-size: 13px;
+        outline: none;
+      }
+      .category-mobile__search input::placeholder {
+        color: rgba(255, 255, 255, 0.42);
+      }
+      .category-mobile__search button,
+      .category-mobile__submit,
+      .category-mobile__close {
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        border: 0;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .category-mobile__search button,
+      .category-mobile__submit {
+        padding: 0 16px;
+        background: var(--category-accent);
+        color: #fff;
+      }
+      .category-mobile__close {
+        min-width: 40px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+      .category-mobile__panel {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        display: none;
+        background: rgba(0, 0, 0, 0.56);
+      }
+      .category-mobile__panel.is-open {
+        display: block;
+      }
+      .category-mobile__panel-dialog {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        max-height: 82vh;
+        overflow: auto;
+        padding: 18px 16px 22px;
+        border-radius: 18px 18px 0 0;
+        background: #151922;
+      }
+      .category-mobile__panel-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .category-mobile__panel-head h2 {
+        margin: 0;
+        font-size: 16px;
+        color: #fff;
+      }
+      .category-mobile__field {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      .category-mobile__field label,
+      .category-mobile__choice-title {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .category-mobile__field input,
+      .category-mobile__field select {
+        width: 100%;
+        height: 40px;
+        padding: 0 14px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        background: #1d222b;
+        color: #fff;
+        font-size: 13px;
+        outline: none;
+      }
+      .category-mobile__choices {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      .category-mobile__choices label {
+        min-height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 10px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        background: #1d222b;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 12px;
+        text-align: center;
+      }
+      .category-mobile__choices input {
+        display: none;
+      }
+      .category-mobile__choices input:checked + span {
+        color: #fff;
+      }
+      .category-mobile__choices label:has(input:checked) {
+        border-color: rgba(99, 106, 232, 0.8);
+        background: rgba(99, 106, 232, 0.14);
+      }
+      .category-mobile__panel-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 18px;
+      }
+      .category-mobile__reset {
+        height: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .category-mobile__listing {
+        padding: 14px 14px 0;
+      }
+      .category-mobile__grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .category-mobile__card {
+        overflow: hidden;
+        min-height: 280px;
+        border-radius: 8px;
+        background: var(--category-bg-card);
+      }
+      .category-mobile__media {
+        position: relative;
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px;
+        background: linear-gradient(180deg, #f4f7fb 0%, #dde4ef 100%);
+      }
+      .category-mobile__media img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+      }
+      .category-mobile__badges {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        display: grid;
+        gap: 6px;
+      }
+      .category-mobile__badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 20px;
+        padding: 0 8px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 1;
+      }
+      .category-mobile__badge--hot,
+      .category-mobile__badge--sale {
+        background: var(--category-danger);
+        color: #fff;
+      }
+      .category-mobile__badge--new {
+        background: var(--category-pink);
+        color: #1f1224;
+      }
+      .category-mobile__card-body {
+        padding: 12px 10px 14px;
+      }
+      .category-mobile__brand {
+        margin: 0 0 6px;
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .category-mobile__title {
+        min-height: 34px;
+        margin: 0;
+        overflow: hidden;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.25;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+      .category-mobile__title a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .category-mobile__rating {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 10px;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 11px;
+      }
+      .category-mobile__star {
+        color: #eab308;
+      }
+      .category-mobile__price {
+        margin-top: 8px;
+        color: var(--category-accent);
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .category-mobile__old-price {
+        margin-top: 2px;
+        color: rgba(255, 255, 255, 0.42);
+        font-size: 11px;
+        text-decoration: line-through;
+      }
+      .category-mobile__page-info {
+        margin: 28px 0 12px;
+        color: var(--category-text-muted);
+        font-size: 12px;
+        text-align: center;
+      }
+      .category-mobile__pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .category-mobile__page,
+      .category-mobile__dots {
+        width: 34px;
+        height: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        border: 1px solid rgba(99, 106, 232, 0.5);
+        background: transparent;
+        color: var(--category-accent);
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .category-mobile__page.is-active {
+        background: var(--category-accent);
+        color: #fff;
+      }
+      .category-mobile__page.is-disabled {
+        opacity: 0.38;
+        pointer-events: none;
+      }
+      .category-mobile__seo {
+        padding: 30px 18px 24px;
+      }
+      .category-mobile__seo h2 {
+        margin: 0;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.45;
+      }
+      .category-mobile__seo p {
+        margin: 12px 0 0;
+        color: var(--category-text-secondary);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      .category-mobile__seo-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 14px;
+        margin: 18px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .category-mobile__seo-list li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: rgba(255, 255, 255, 0.86);
+        font-size: 12px;
+      }
+      .category-mobile__seo-list strong {
+        width: 18px;
+        height: 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: rgba(99, 106, 232, 0.16);
+        color: var(--category-accent);
+        font-size: 11px;
+      }
+    }
 
 block content
   - const currentCategoryName = category && category.name ? category.name : 'Tat ca Loa'
@@ -701,26 +1138,162 @@ block content
   - const currentSort = filters && filters.sort ? filters.sort : 'featured'
   - const currentSearch = filters && filters.search ? filters.search : ''
   - const currentBrand = filters && filters.brand ? filters.brand : ''
+  - const currentPage = filters && Number(filters.page) ? Number(filters.page) : 1
   - const currentMinPrice = filters && Number(filters.minPrice) ? Number(filters.minPrice) : 0
   - const currentMaxPrice = filters && Number(filters.maxPrice) ? Number(filters.maxPrice) : 0
   - const displayProducts = products || []
-  - const productCount = displayProducts.length
+  - const mobileDisplayProducts = mobileProducts || displayProducts.slice(0, 8)
+  - const paginationData = pagination || { currentPage, totalPages: 1, totalItems: displayProducts.length, startItem: displayProducts.length ? 1 : 0, endItem: displayProducts.length, hasPrev: false, hasNext: false, items: [1] }
+  - const productCount = paginationData.totalItems || displayProducts.length
   - const categoryOptions = [{ slug: '', name: 'Tat ca Loa' }, { slug: 'loa-bluetooth', name: 'Loa Bluetooth' }, { slug: 'loa-karaoke', name: 'Loa Karaoke' }, { slug: 'loa-soundbar', name: 'Loa Soundbar' }, { slug: 'loa-thong-minh', name: 'Loa Thong minh' }]
   - const brandOptions = Array.from(new Set([...(brands || []), 'Marshall', 'Bose', 'JBL', 'Sony', 'Bang & Olufsen', 'Harman Kardon', 'Apple', 'Samsung']))
   - const priceOptions = [{ label: 'Duoi 2.000.000d', min: 0, max: 2000000 }, { label: '2.000.000d - 5.000.000d', min: 2000000, max: 5000000 }, { label: '5.000.000d - 10.000.000d', min: 5000000, max: 10000000 }, { label: '10.000.000d - 20.000.000d', min: 10000000, max: 20000000 }, { label: 'Tren 20.000.000d', min: 20000000, max: 0 }]
   - const activePriceKey = `${currentMinPrice || 0}-${currentMaxPrice || 0}`
+  - const baseCategoryPath = currentCategorySlug ? `/category/${currentCategorySlug}` : '/category'
+  - const activeFilterCount = [currentCategorySlug, currentBrand, currentSearch, (currentMinPrice || currentMaxPrice) ? 'price' : ''].filter(Boolean).length
+  - const sortLabelMap = { featured: 'Noi bat', newest: 'Moi nhat', price_asc: 'Gia tang', price_desc: 'Gia giam', rating: 'Danh gia', name: 'Ten A-Z' }
+  - const currentSortLabel = sortLabelMap[currentSort] || 'Moi nhat'
+  - const buildPageHref = (pageNumber) => { const params = new URLSearchParams(); if (currentSearch) params.set('search', currentSearch); if (currentBrand) params.set('brand', currentBrand); if (currentSort && currentSort !== 'featured') params.set('sort', currentSort); if (currentMinPrice) params.set('minPrice', String(currentMinPrice)); if (currentMaxPrice) params.set('maxPrice', String(currentMaxPrice)); if (pageNumber > 1) params.set('page', String(pageNumber)); const query = params.toString(); return query ? `${baseCategoryPath}?${query}` : baseCategoryPath; }
   .category-page
-    .shell
+    .category-mobile
+      nav.category-mobile__breadcrumb(aria-label="Breadcrumb")
+        a(href="/") Trang chu
+        span >
+        span(aria-current="page")= currentCategoryName
+      section.category-mobile__hero
+        h1 He Thong Am Thanh
+        p Kham pha bo suu tap loa cao cap tu cac thuong hieu hang dau the gioi. Tu am thanh gia dinh den di dong.
+        .category-mobile__toolbar
+          button.category-mobile__tool(type="button" data-mobile-filter-open)
+            span Loc
+            span.category-mobile__tool-badge= activeFilterCount
+          button.category-mobile__tool(type="button" data-mobile-filter-open)= currentSortLabel
+          span.category-mobile__count= `Hien thi ${productCount} san pham`
+        form.category-mobile__search(method="get" action="/category")
+          input(type="hidden" name="categorySlug" value=currentCategorySlug)
+          input(type="hidden" name="brand" value=currentBrand)
+          input(type="hidden" name="sort" value=currentSort)
+          input(type="hidden" name="minPrice" value=currentMinPrice)
+          input(type="hidden" name="maxPrice" value=currentMaxPrice)
+          input(type="hidden" name="page" value="1")
+          input(type="search" name="search" value=currentSearch placeholder="Tim loa, thuong hieu..." aria-label="Tim kiem san pham")
+          button(type="submit") Tim kiem
+      .category-mobile__panel(data-mobile-filter-panel)
+        .category-mobile__panel-dialog
+          .category-mobile__panel-head
+            h2 Bo loc san pham
+            button.category-mobile__close(type="button" data-mobile-filter-close) ×
+          form(method="get" action="/category")
+            input(type="hidden" name="page" value="1")
+            .category-mobile__field
+              label(for="mobile-search") Tu khoa
+              input#mobile-search(type="search" name="search" value=currentSearch placeholder="Nhap ten san pham")
+            .category-mobile__field
+              label(for="mobile-sort") Sap xep
+              select#mobile-sort(name="sort")
+                option(value="featured" selected=(currentSort === 'featured')) Noi bat
+                option(value="newest" selected=(currentSort === 'newest')) Moi nhat
+                option(value="price_asc" selected=(currentSort === 'price_asc')) Gia tang dan
+                option(value="price_desc" selected=(currentSort === 'price_desc')) Gia giam dan
+                option(value="rating" selected=(currentSort === 'rating')) Danh gia cao
+                option(value="name" selected=(currentSort === 'name')) Ten A-Z
+            .category-mobile__choice-title Danh muc
+            .category-mobile__choices
+              each item in categoryOptions
+                label
+                  input(type="radio" name="categorySlug" value=item.slug checked=((!item.slug && !currentCategorySlug) || item.slug === currentCategorySlug))
+                  span= item.name
+            .category-mobile__choice-title Thuong hieu
+            .category-mobile__choices
+              label
+                input(type="radio" name="brand" value="" checked=!currentBrand)
+                span Tat ca
+              each brandName in brandOptions
+                label
+                  input(type="radio" name="brand" value=brandName checked=(currentBrand === brandName))
+                  span= brandName
+            .category-mobile__choice-title Khoang gia
+            .category-mobile__choices
+              label
+                input(type="radio" name="priceRange" value="0-0" checked=(activePriceKey === '0-0'))
+                span Tat ca
+              each option in priceOptions
+                - const optionKey = `${option.min}-${option.max}`
+                label
+                  input(type="radio" name="priceRange" value=optionKey data-price-min=option.min data-price-max=option.max checked=(activePriceKey === optionKey))
+                  span= option.label
+            input(type="hidden" name="minPrice" value=currentMinPrice)
+            input(type="hidden" name="maxPrice" value=currentMaxPrice)
+            .category-mobile__panel-actions
+              button.category-mobile__reset(type="button" data-mobile-filter-reset) Dat lai
+              button.category-mobile__submit(type="submit") Ap dung
+      if mobileDisplayProducts.length
+        section.category-mobile__listing
+          .category-mobile__grid
+            each product, index in mobileDisplayProducts
+              - const reviewCount = product.ratingCount || 24 + index * 11
+              article.category-mobile__card
+                .category-mobile__media
+                  img(src=product.image alt=product.name loading="lazy")
+                  .category-mobile__badges
+                    if index === 0
+                      span.category-mobile__badge.category-mobile__badge--new Moi
+                    if product.featured
+                      span.category-mobile__badge.category-mobile__badge--hot -Hot
+                    if product.discountPercentage
+                      span.category-mobile__badge.category-mobile__badge--sale -#{Math.round(product.discountPercentage)}%
+                .category-mobile__card-body
+                  p.category-mobile__brand= product.brand || 'SoundHouse'
+                  h2.category-mobile__title
+                    a(href=`/products/${product.slug}`)= product.name
+                  .category-mobile__rating
+                    span.category-mobile__star *
+                    span= `${Number(product.ratingAverage || 4.8).toFixed(1)} (${reviewCount})`
+                  .category-mobile__price= product.priceText
+                  if product.compareAtPriceText
+                    .category-mobile__old-price= product.compareAtPriceText
+          if paginationData.totalPages > 1
+            .category-mobile__page-info= `Hien thi ${paginationData.startItem}-${paginationData.endItem} trong ${paginationData.totalItems} san pham`
+            nav.category-mobile__pagination(aria-label="Phan trang mobile")
+              a.category-mobile__page(class=paginationData.hasPrev ? '' : 'is-disabled' href=paginationData.hasPrev ? buildPageHref(paginationData.currentPage - 1) : '#' aria-label="Trang truoc") <
+              each pageItem in paginationData.items
+                if pageItem === 'dots'
+                  span.category-mobile__dots ...
+                else
+                  a.category-mobile__page(class=pageItem === paginationData.currentPage ? 'is-active' : '' href=buildPageHref(pageItem))= pageItem
+              a.category-mobile__page(class=paginationData.hasNext ? '' : 'is-disabled' href=paginationData.hasNext ? buildPageHref(paginationData.currentPage + 1) : '#' aria-label="Trang sau") >
+          .category-mobile__seo
+            h2 Loa SoundHouse - Trai nghiem am thanh dinh cao
+            p Tai SoundHouse, chung toi cung cap da dang cac dong loa tu Marshall, JBL, Sony den cac he thong hi-end cao cap. Moi san pham deu duoc bao hanh chinh hang va ho tro tra gop 0%.
+            ul.category-mobile__seo-list
+              li
+                strong +
+                span Cam ket chinh hang
+              li
+                strong +
+                span Bao hanh 12 thang
+              li
+                strong +
+                span Giao hang nhanh 2h
+              li
+                strong +
+                span Ho tro ky thuat 24/7
+      else
+        section.category-mobile__listing
+          .empty-state
+            p Khong co san pham phu hop voi bo loc hien tai.
+            p Hay thu doi bo loc hoac danh muc.
+    .shell.category-desktop
       nav.category-page__breadcrumb(aria-label="Breadcrumb")
         a(href="/") Trang chu
-        span ›
+        span >
         a(href="/category") San pham
-        span ›
+        span >
         span(aria-current="page")= currentCategoryName
 
       .category-page__layout
         aside.category-sidebar
-          form#category-filter-form(method="get" action=`/category/${currentCategorySlug}` data-category-filter-form)
+          form#category-filter-form(method="get" action="/category" data-category-filter-form)
             .category-sidebar__header
               .category-sidebar__title
                 svg(viewBox="0 0 16 16" aria-hidden="true")
@@ -730,6 +1303,7 @@ block content
 
             input(type="hidden" name="search" value=currentSearch)
             input(type="hidden" name="sort" value=currentSort)
+            input(type="hidden" name="page" value="1")
             input(type="hidden" name="minPrice" value=currentMinPrice)
             input(type="hidden" name="maxPrice" value=currentMaxPrice)
 
@@ -845,18 +1419,21 @@ block content
                       if comparePrice
                         span= comparePrice
 
-            nav.catalog-pagination(aria-label="Phan trang")
-              a.pagination__button(href="#" aria-label="Trang truoc")
-                svg(viewBox="0 0 16 16" aria-hidden="true")
-                  path(fill="currentColor" d="M9.97 3.97 5.94 8l4.03 4.03-1.06 1.06L3.82 8l5.09-5.09z")
-              a.pagination__button.is-active(href="#") 1
-              a.pagination__button(href="#") 2
-              a.pagination__button(href="#") 3
-              span.pagination__dots ...
-              a.pagination__button(href="#") 12
-              a.pagination__button(href="#" aria-label="Trang sau")
-                svg(viewBox="0 0 16 16" aria-hidden="true")
-                  path(fill="currentColor" d="m6.03 3.97 1.06-1.06L12.18 8l-5.09 5.09-1.06-1.06L10.06 8z")
+            if paginationData.totalPages > 1
+              nav.catalog-pagination(aria-label="Phan trang")
+                a.pagination__button(class=paginationData.hasPrev ? '' : 'is-disabled' href=paginationData.hasPrev ? buildPageHref(paginationData.currentPage - 1) : '#' aria-label="Trang truoc")
+                  svg(viewBox="0 0 16 16" aria-hidden="true")
+                    path(fill="currentColor" d="M9.97 3.97 5.94 8l4.03 4.03-1.06 1.06L3.82 8l5.09-5.09z")
+                each pageItem in paginationData.items
+                  if pageItem === 'dots'
+                    span.pagination__dots ...
+                  else if pageItem === paginationData.currentPage
+                    a.pagination__button.is-active(href=buildPageHref(pageItem))= pageItem
+                  else
+                    a.pagination__button(href=buildPageHref(pageItem))= pageItem
+                a.pagination__button(class=paginationData.hasNext ? '' : 'is-disabled' href=paginationData.hasNext ? buildPageHref(paginationData.currentPage + 1) : '#' aria-label="Trang sau")
+                  svg(viewBox="0 0 16 16" aria-hidden="true")
+                    path(fill="currentColor" d="m6.03 3.97 1.06-1.06L12.18 8l-5.09 5.09-1.06-1.06L10.06 8z")
 
             .promo-banner
               .promo-banner__content
@@ -871,3 +1448,5 @@ block content
 
 block scripts
   script(type="module" src="/js/category.js")
+
+
